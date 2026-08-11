@@ -1,0 +1,14 @@
+:root{
+    --main-color:rgb(186, 205, 243);
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    box-sizing: border-box;
+    background-color: var(--main-color);
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
