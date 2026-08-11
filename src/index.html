@@ -1,11 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Todo List</title>
-</head>
-<body>
-  <h1>My Todo List</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Todo List</title>
+  </head>
+  <body>
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <title>Todo List</title>
+      </head>
+      <body>
+        <header class="app-header">
+          <h2>Ваш тихий куточок для виконання справ</h2>
+          <div class="current-date-container"></div>
+        </header>
 
-</body>
+        <div class="app-layout">
+          <aside class="sidebar">
+            <div class="logo-page-container">
+                <div id="page-logo">Лого</div>
+                <h1>ToDo</h1>
+            </div>
+            <div class="navigation-container">
+            <nav>
+              <ul>
+                <li>
+                <button id="btn-home" class="nav-btn">
+                    <img src="./inbox-icon.svg" alt="" class="nav-icon">
+                    <span>Огляд</span>
+                </button>
+                </li>
+                <li>
+                <button id="btn-home" class="nav-btn">
+                    <img src="./inbox-icon.svg" alt="" class="nav-icon">
+                    <span>Огляд</span>
+                </button>
+                </li>
+                <li>
+                <button id="btn-home" class="nav-btn">
+                    <img src="./inbox-icon.svg" alt="" class="nav-icon">
+                    <span>Огляд</span>
+                </button>
+                </li>
+                <li>
+                <button id="btn-home" class="nav-btn">
+                    <img src="./inbox-icon.svg" alt="" class="nav-icon">
+                    <span>Огляд</span>
+                </button>
+                </li>
+            
+
+              </ul>
+            </nav>
+             <div class="nav-projects-container">
+                <span id="my-projects-header">мої проекти</span>
+                <button id="Inbox">
+                    <div class="circle-status-info">О</div>
+                    <span>Вхідні</span>
+                    <span id="quantity-of-inbox">(1)</span>
+                </button>
+                <button id="New-project">+ Новий проект</button>
+             </div>
+            </div>
+          </aside>
+
+          <main id="dynamic-content"></main>
+        </div>
+      </body>
+    </html>
+  </body>
 </html>
