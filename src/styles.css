@@ -1,7 +1,7 @@
 :root {
   --main-color: rgb(211, 224, 234);
   --border-color: rgb(215, 213, 222);
-  --box-shadow: 0 2px 2px 0px rgb(223, 238, 238);
+  --box-shadow: 0 1px 1px 0px rgb(223, 238, 238);
 }
 * {
   margin: 0;
@@ -9,7 +9,7 @@
 }
 body {
   box-sizing: border-box;
- background: linear-gradient(180deg, #7d7f83 0%, #454748 100%);
+  background: linear-gradient(180deg, #9d9fa2 0%, #dee3e6 100%);
   display: grid;
   grid-template-columns: 1fr 5fr;
 }
@@ -27,7 +27,7 @@ button {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  border: 2px solid var(--border-color);
+  border-left: 2px solid var(--border-color);
   box-shadow: var(--box-shadow);
 }
 .logo-page-container {
@@ -36,8 +36,8 @@ button {
   gap: 10px;
   justify-content: center;
   border-bottom: 1px solid black;
-  box-shadow: var(--box-shadow);
-  background-color: rgb(145, 145, 146);
+  border-bottom: 1px solid rgb(145, 145, 146);
+  box-shadow: 0 1px 1px 0 rgb(172, 162, 162);
 }
 #page-logo {
   width: 40px;
@@ -118,10 +118,9 @@ ol {
   height: 10px;
   padding: 5px;
 }
-#projects-container{
- display: flex;
- flex-direction: column;
- 
+#projects-container {
+  display: flex;
+  flex-direction: column;
 }
 .project {
   display: flex;
@@ -163,20 +162,20 @@ ol {
 #icon-edit-btn {
   border-radius: 10px;
 }
-#icon-close-btn{
+#icon-close-btn {
   border-radius: 10px;
 }
 #pen-icon {
   opacity: 0;
 }
-#close-icon{
+#close-icon {
   opacity: 0;
 }
 .project:hover {
   #pen-icon {
     opacity: 0.3;
   }
-  #close-icon{
+  #close-icon {
     opacity: 0.2;
   }
 }
@@ -213,9 +212,32 @@ ol {
   color: aliceblue;
   transform: scale(1.05);
 }
-#inbox:focus{
- background-color: rgba(247, 244, 244, 0.519);
- .circle-status-info{
-  background-color: rgb(80, 85, 90)
- }
+#inbox:focus {
+  background-color: rgba(247, 244, 244, 0.519);
+  .circle-status-info {
+    background-color: rgb(80, 85, 90);
+  }
+}
+/*APP*/
+.app-layout {
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+}
+/*APP-HEADER*/
+header {
+  border-bottom: 1px solid rgb(145, 145, 146);
+  box-shadow: 0 1px 1px 0 rgb(172, 162, 162);
+  padding: 17px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #45494e;
+}
+header > h2 {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 1.2rem;
+}
+.current-date-container {
+  font-weight: bold;
+  letter-spacing: 0.5px;
 }
