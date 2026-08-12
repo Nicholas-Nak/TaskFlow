@@ -43,6 +43,9 @@ export function renderProjectForm(){
     dialog.showModal();
    closeDialog.addEventListener("click", () => {
     dialog.close();
-});
+}); 
+  sumbitBtn.addEventListener('click',()=>{
+   
+  })
 
 }
