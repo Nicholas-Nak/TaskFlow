@@ -7,12 +7,12 @@
   <body>
     <aside class="sidebar">
       <div class="logo-page-container">
-        <img src="images/check.png" alt="Page logo" />
+        <img id="page-logo"src="images/check.png" alt="Page logo" />
         <h1>ToDo</h1>
       </div>
       <div class="navigation-container">
         <nav>
-          <ul>
+          <ul class="main-navigation">
             <li>
               <button id="btn-home" class="nav-btn">
                 <img src="images/home.png" alt="home" class="nav-icon" />
@@ -41,11 +41,21 @@
         </nav>
         <div class="nav-projects-container">
           <span id="my-projects-header">мої проекти</span>
-          <button id="Inbox">
-            <div class="circle-status-info">О</div>
+         <div id="projects-container">
+          <div class="project">
+          <button id="inbox">
+            <div class="project-name-container">
+            <div class="circle-status-info"></div>
             <span>Вхідні</span>
+            </div>
             <span id="quantity-of-inbox">(1)</span>
+
           </button>
+           <button id="icon-edit-btn" class="icon-btn">
+            <img id="pen-icon" src="images/pen.png" alt="pen" >
+           </button>
+          </div>
+          </div>
           <button id="New-project">+ Новий проект</button>
         </div>
       </div>
