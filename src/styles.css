@@ -1,7 +1,7 @@
 :root {
   --main-color: rgb(211, 224, 234);
-  --border-color: rgb(179, 179, 179);
-  --box-shadow: 0 2px 2px 0px rgb(129, 130, 130);
+  --border-color: rgb(215, 213, 222);
+  --box-shadow: 0 2px 2px 0px rgb(223, 238, 238);
 }
 * {
   margin: 0;
@@ -9,7 +9,7 @@
 }
 body {
   box-sizing: border-box;
-  background-color: var(--main-color);
+ background: linear-gradient(180deg, #7d7f83 0%, #454748 100%);
   display: grid;
   grid-template-columns: 1fr 5fr;
 }
@@ -27,7 +27,7 @@ button {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border-color);
+  border: 2px solid var(--border-color);
   box-shadow: var(--box-shadow);
 }
 .logo-page-container {
@@ -35,9 +35,9 @@ button {
   display: flex;
   gap: 10px;
   justify-content: center;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid black;
   box-shadow: var(--box-shadow);
-  background-color: rgb(234, 234, 237);
+  background-color: rgb(145, 145, 146);
 }
 #page-logo {
   width: 40px;
@@ -114,6 +114,15 @@ ol {
   height: 15px;
   padding: 5px;
 }
+#close-icon {
+  height: 10px;
+  padding: 5px;
+}
+#projects-container{
+ display: flex;
+ flex-direction: column;
+ 
+}
 .project {
   display: flex;
   font-family: Arial, Helvetica, sans-serif;
@@ -121,7 +130,7 @@ ol {
   justify-content: space-between;
   align-items: center;
   width: 95%;
-  padding: 10px;
+  padding: 3px;
 }
 .project-name-container {
   display: flex;
@@ -154,12 +163,21 @@ ol {
 #icon-edit-btn {
   border-radius: 10px;
 }
+#icon-close-btn{
+  border-radius: 10px;
+}
 #pen-icon {
+  opacity: 0;
+}
+#close-icon{
   opacity: 0;
 }
 .project:hover {
   #pen-icon {
     opacity: 0.3;
+  }
+  #close-icon{
+    opacity: 0.2;
   }
 }
 #icon-edit-btn:hover {
@@ -168,7 +186,12 @@ ol {
     opacity: 0.7;
   }
 }
-
+#icon-delete-btn:hover {
+  background-color: rgb(163, 163, 170);
+  #close-icon {
+    opacity: 1;
+  }
+}
 #New-project {
   border: 1px dotted rgb(129, 130, 130);
   padding: 10px;
