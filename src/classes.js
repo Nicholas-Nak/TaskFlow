@@ -41,22 +41,47 @@ export class Project {
 }
 
 export class Todo {
-  constructor(title, description, priority, notes) {
+  constructor(title) {
     this.id = crypto.randomUUID();
     this.title = title;
-    this.description = description;
-    this.date = date;
-    this.notes = notes;
-    this.status = active;
+    this.status = 'active'
   }
+  #description = '';
+  #priority = '';
+  #notes = '';
+  
+
   getTitle(){
+   return this.title;
+  }
 
+  setTitle(title){
+    this.title = title;
   }
-  setTitle(){
-    
-  }
+  
   getDescription(){
-
+     return this.#description;
+  }
+  setDescription(desk){
+    this.#description = desk;
+  }
+  getStatus(){
+    return this.status;
+  }
+  changeStatus(status){
+    this.status = status;
+  }
+  getPriority(){
+    return this.#priority;
+  }
+  setPriority(prior){
+    this.#priority = prior;
+  }
+  getNotes(){
+    return this.#notes;
+  }
+  setNotes(note){
+    this.#notes = note;
   }
 }
 

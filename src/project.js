@@ -1,4 +1,4 @@
-import {ToDo,Project,Projects} from './mainLogic';
+import "./classes"
 export function createProject(){
 
 }
