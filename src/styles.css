@@ -221,7 +221,7 @@ ol {
 /*APP*/
 .app-layout {
   display: grid;
-  grid-template-rows: 1fr 10fr;
+  grid-template-rows: 1fr 10fr 1fr;
 }
 /*APP-HEADER*/
 header {
@@ -240,4 +240,17 @@ header > h2 {
 .current-date-container {
   font-weight: bold;
   letter-spacing: 0.5px;
+}
+footer{
+  border-top: 0.7px solid rgb(145, 145, 146);
+  box-shadow: 0 1px 1px 0 rgb(172, 162, 162);
+  padding: 17px;
+  color: #45494e;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  word-spacing: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
