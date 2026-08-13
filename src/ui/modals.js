@@ -2,6 +2,7 @@
 import { Project } from "../logic/classes";
 import { saveStorage } from "../logic/storage"; 
 import { appProjects } from "../index";
+import { renderProjects } from "./renderProjects";
 
 export function initProjectModal() {
   const dialog = document.getElementById("project-dialog");
@@ -29,6 +30,7 @@ export function initProjectModal() {
       appProjects.addProject(newProject);
       saveStorage(appProjects); 
       console.log("Створено новий проєкт", appProjects.getProjects());
+      renderProjects();
     }
 
     dialog.close();
