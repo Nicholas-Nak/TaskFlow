@@ -8,11 +8,6 @@ renderCurrentTime();
 export const appProjects = loadStorage(); 
 
 //initProjectModal();
-const dialog = document.getElementById("project-dialog");
-const openBtn = document.getElementById("New-project");
-openBtn.addEventListener("click", () => {
-    dialog.showModal();
-  });
 
 function clearMain() {
   const main = document.getElementById("dynamic-content");
