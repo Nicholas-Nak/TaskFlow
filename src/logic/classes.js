@@ -60,7 +60,9 @@ export class Project {
   setActive(count) {
     this.#active = count;
   }
-
+  getCompleted(){
+    return this.#completed;
+  }
   getTasks() {
     return this.#tasks;
   }

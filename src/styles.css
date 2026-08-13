@@ -30,7 +30,7 @@ button {
   border-left: 2px solid var(--border-color);
   box-shadow: var(--box-shadow);
   overflow-y: auto;
-  overflow-x:scroll;
+  overflow-x: scroll;
 }
 .sidebar::-webkit-scrollbar {
   width: 6px;
@@ -164,7 +164,6 @@ ol {
   flex-grow: 1;
   padding: 10px;
   border-radius: 20px;
- 
 }
 .circle-status-info {
   width: 10px;
@@ -278,7 +277,8 @@ footer {
 }
 /*PROJECT-DIALOG*/
 
-#project-dialog,#project-rename-dialog {
+#project-dialog,
+#project-rename-dialog {
   padding: 24px;
   border: none;
   border-radius: 12px;
@@ -288,26 +288,30 @@ footer {
   background-color: #ffffff;
   margin: auto;
 }
-#project-dialog::backdrop,#project-rename-dialog::backdrop {
+#project-dialog::backdrop,
+#project-rename-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
-#project-fieldset,#project-rename-fieldset {
+#project-fieldset,
+#project-rename-fieldset {
   border: none;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-#project-legend, #project-rename-legend{
+#project-legend,
+#project-rename-legend {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 1.3rem;
   font-weight: bold;
   color: #45494e;
   margin-bottom: 5px;
 }
-#project-input,#project-rename-input {
+#project-input,
+#project-rename-input {
   padding: 12px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -319,19 +323,22 @@ footer {
     box-shadow 0.3s ease;
 }
 
-#project-input:focus,#project-rename-input:focus{
+#project-input:focus,
+#project-rename-input:focus {
   border-color: rgb(80, 85, 90);
   box-shadow: 0 0 5px rgba(80, 85, 90, 0.3);
 }
 
-.dialog-buttons, .dialog-rename-buttons {
+.dialog-buttons,
+.dialog-rename-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
   margin-top: 10px;
 }
 
-#project-submit,#project-rename-submit{
+#project-submit,
+#project-rename-submit {
   background-color: rgb(80, 85, 90);
   color: aliceblue;
   padding: 8px 16px;
@@ -342,12 +349,14 @@ footer {
     transform 0.2s ease;
 }
 
-#project-submit:hover, #project-rename-submit:hover {
+#project-submit:hover,
+#project-rename-submit:hover {
   background-color: #2c2f33;
   transform: scale(1.05);
 }
 
-#project-close-dialog,#project-rename-close-dialog {
+#project-close-dialog,
+#project-rename-close-dialog {
   background-color: transparent;
   color: rgb(80, 85, 90);
   padding: 8px 16px;
@@ -359,7 +368,33 @@ footer {
     color 0.3s ease;
 }
 
-#project-close-dialog:hover,#project-rename-close-dialog:hover {
+#project-close-dialog:hover,
+#project-rename-close-dialog:hover {
   background-color: rgb(80, 85, 90);
   color: aliceblue;
+}
+/*PROJECTS-VIEW*/
+#dynamic-content {
+  padding: 3rem;
+}
+#project-view-header{
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  position: relative;
+   padding-top: 15px;
+}
+#project-view-header::before{
+   content: "";
+  position: absolute;
+  top: 0;
+  left: 0;           
+  width: 5%;         
+  height: 4px;        
+  background-color: #ce7373;
+  border-radius: 20px;
+}
+#header-status-container{
+  display: flex;
+  justify-content: space-between;
 }
