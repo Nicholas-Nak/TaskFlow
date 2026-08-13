@@ -256,14 +256,96 @@ footer{
   justify-content: center;
 }
 /*PROJECT-DIALOG*/
-#project-dialog{
+/* =========================================
+   МОДАЛЬНІ ВІКНА (ДІАЛОГИ)
+   ========================================= */
+
+/* Базовий стиль вікна */
+#project-dialog {
   padding: 24px;
   border: none;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  background-color: #ffffff;
+  margin: auto; /* Відцентровує вікно */
 }
-#project-dialog::backdrop{
+
+/* Блюр заднього фону */
+#project-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+}
+
+/* Прибираємо стандартну рамку fieldset */
+#project-fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#project-legend {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #45494e;
+  margin-bottom: 5px;
+}
+
+/* Інпут для введення назви */
+#project-input {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#project-input:focus {
+  border-color: rgb(80, 85, 90);
+  box-shadow: 0 0 5px rgba(80, 85, 90, 0.3);
+}
+
+/* Контейнер для кнопок */
+.dialog-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* Кнопка "Створити" */
+#project-submit {
+  background-color: rgb(80, 85, 90);
+  color: aliceblue;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#project-submit:hover {
+  background-color: #2c2f33;
+  transform: scale(1.05);
+}
+
+/* Кнопка "Відмінити" */
+#project-close-dialog {
+  background-color: transparent;
+  color: rgb(80, 85, 90);
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgb(80, 85, 90);
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#project-close-dialog:hover {
+  background-color: rgb(80, 85, 90);
+  color: aliceblue;
 }
