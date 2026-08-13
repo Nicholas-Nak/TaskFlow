@@ -495,3 +495,118 @@ background-color: rgb(80, 85, 90);
   outline: none;
   border-color: #8c6b5d;
 }
+/*PROJECTS-VIEW-TASKS*/
+#tasks-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.task-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 15px 20px;
+  box-shadow: 0 1px 1px 0px rgb(172, 162, 162);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px 0px rgba(172, 162, 162, 0.5);
+}
+
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-right: 20px;
+  accent-color: rgb(80, 85, 90);
+}
+
+.task-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 6px;
+}
+
+.task-title {
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(80, 85, 90);
+  transition: color 0.3s ease;
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.task-date {
+  font-size: 13px;
+  color: #75797c;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", sans-serif;
+}
+
+.task-priority {
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.priority-high {
+  background-color: #ce7373;
+  color: aliceblue;
+}
+
+.priority-medium {
+  background-color: rgb(153, 159, 159);
+  color: aliceblue;
+}
+
+.priority-low {
+  background-color: rgb(215, 213, 222);
+  color: rgb(80, 85, 90);
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-btn {
+  background-color: transparent;
+  color: rgb(80, 85, 90);
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid rgb(80, 85, 90);
+  font-weight: bold;
+  font-size: 13px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.task-btn:hover {
+  background-color: rgb(80, 85, 90);
+  color: aliceblue;
+}
+
+.task-card.completed {
+  opacity: 0.6;
+  background-color: rgba(223, 238, 238, 0.3);
+  box-shadow: none;
+}
+
+.task-card.completed .task-title {
+  text-decoration: line-through;
+  color: rgb(153, 159, 159);
+}

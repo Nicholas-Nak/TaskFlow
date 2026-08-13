@@ -64,5 +64,77 @@ export function renderProjectView(project){
     searchSelect.appendChild(searchPriority3);
     searchSelect.appendChild(searchPriority4);
     
+    const tasksContainer = document.createElement("div");
+    tasksContainer.id = "tasks-list-container";
+    mainContent.appendChild(tasksContainer);
 
+    project.getTasks().forEach(task => {
+        const taskCard = document.createElement("div");
+        taskCard.classList.add("task-card");
+
+        const checkbox = document.createElement("input");
+        checkbox.setAttribute("type", "checkbox");
+        checkbox.classList.add("task-checkbox");
+        
+        if (task.isCompleted()) {
+            checkbox.checked = true;
+            taskCard.classList.add("completed"); 
+        }
+        const infoContainer = document.createElement("div");
+        infoContainer.classList.add("task-info");
+
+        const taskTitle = document.createElement("span");
+        taskTitle.classList.add("task-title");
+        taskTitle.textContent = task.getTitle(); 
+
+        const metaContainer = document.createElement("div");
+        metaContainer.classList.add("task-meta");
+
+        const taskDate = document.createElement("span");
+        taskDate.classList.add("task-date");
+        taskDate.textContent = task.getDate() || "Без терміну погашення";
+
+        const taskPriority = document.createElement("span");
+        taskPriority.classList.add("task-priority");
+        taskPriority.classList.add(`priority-${task.getPriority().toLowerCase()}`);
+        taskPriority.textContent = task.getPriority().toUpperCase();
+
+        metaContainer.appendChild(taskDate);
+        metaContainer.appendChild(taskPriority);
+        infoContainer.appendChild(taskTitle);
+        infoContainer.appendChild(metaContainer);
+
+        const actionsContainer = document.createElement("div");
+        actionsContainer.classList.add("task-actions");
+
+        const detailsBtn = document.createElement("button");
+        detailsBtn.textContent = "Деталі";
+        detailsBtn.classList.add("task-btn", "details-btn");
+
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "Редагувати";
+        editBtn.classList.add("task-btn", "edit-btn");
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Видалити";
+        deleteBtn.classList.add("task-btn", "delete-btn");
+
+        actionsContainer.appendChild(detailsBtn);
+        actionsContainer.appendChild(editBtn);
+        actionsContainer.appendChild(deleteBtn);
+
+        taskCard.appendChild(checkbox);
+        taskCard.appendChild(infoContainer);
+        taskCard.appendChild(actionsContainer);
+
+        tasksContainer.appendChild(taskCard);
+
+        checkbox.addEventListener("change", () => {
+            if (checkbox.checked) {
+                taskCard.classList.add("completed");
+            } else {
+                taskCard.classList.remove("completed");
+            }
+        });
+    });
 }
