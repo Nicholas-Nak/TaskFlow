@@ -27,5 +27,42 @@ export function renderProjectView(project){
     header.appendChild(headerButtom);
     headerButtom.append(projectStatus);
     headerButtom.append(addbtn);
+    
+    const searchContainer = document.createElement("div");
+    searchContainer.id = "search-container";
+    
+    const searchInputText = document.createElement('input');
+    searchInputText.id = "search-input-text";
+    searchInputText.setAttribute("placeholder","Пошук завдань...");
+    searchInputText.setAttribute("type","text");
+
+    const searchSelect = document.createElement("select");
+    searchSelect.setAttribute('name','prioryty');
+    searchSelect.id = "priority-select";
+
+    const searchPriority1 = document.createElement("option");
+    searchPriority1.textContent = "Пріоритет";
+    searchPriority1.setAttribute("value","priority");
+
+     const searchPriority2 = document.createElement("option");
+    searchPriority2.textContent = "Дата виконання";
+    searchPriority2.setAttribute("value","daedlineDate");
+
+     const searchPriority3 = document.createElement("option");
+    searchPriority3.textContent = "Дата створення";
+    searchPriority3.setAttribute("value","creatDate");
+
+     const searchPriority4 = document.createElement("option");
+    searchPriority4.textContent = "Назва";
+    searchPriority4.setAttribute("value","title");
+
+    mainContent.appendChild(searchContainer);
+    searchContainer.appendChild(searchInputText);
+    searchContainer.appendChild(searchSelect);
+    searchSelect.appendChild(searchPriority1);
+    searchSelect.appendChild(searchPriority2);
+    searchSelect.appendChild(searchPriority3);
+    searchSelect.appendChild(searchPriority4);
+    
 
 }
