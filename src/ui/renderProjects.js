@@ -82,7 +82,8 @@ export function renderProjects() {
         if (projectRename) {
           project.setTitle(projectRename);
           saveStorage(allProjects);       
-          renderProjects();            
+          renderProjects();
+          renderProjectView(project);            
         }
 
         dialogRename.close();
