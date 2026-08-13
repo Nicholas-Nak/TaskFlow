@@ -1,4 +1,3 @@
-
 import "../logic/classes"
 import closeIconPath from "../images/free-icon-close-1828747.png";
 import editIconPath from "../images/pen.png"
@@ -15,7 +14,7 @@ export function renderProjects() {
     projContainer.classList.add('project');
     
     const projBtn = document.createElement('button');
-    projBtn.classList.add('project-inbox-btn'); 
+    projBtn.classList.add('inbox'); 
     
     const projectNameContainer = document.createElement('div');
     projectNameContainer.classList.add('project-name-container');
@@ -31,16 +30,18 @@ export function renderProjects() {
     activeProjects.textContent = '(' + project.getActive() + ')';
     
     const editBtn = document.createElement('button');
-    editBtn.classList.add("icon-btn", "edit-btn"); 
+    editBtn.classList.add("icon-btn", "icon-edit-btn"); 
     
     const editImg = document.createElement('img');
+    editImg.classList.add("pen-icon"); 
     editImg.setAttribute("src", editIconPath);
     editBtn.setAttribute("alt", "pen");
     
     const deleteBtn = document.createElement('button');
-    deleteBtn.classList.add('icon-btn', 'delete-btn'); 
+    deleteBtn.classList.add('icon-btn', 'icon-delete-btn'); 
 
     const deleteImg = document.createElement('img');
+    deleteImg.classList.add("close-icon"); 
     deleteImg.setAttribute("src", closeIconPath);
     deleteBtn.setAttribute("alt", "close");
 
@@ -49,11 +50,9 @@ export function renderProjects() {
     projBtn.appendChild(projectNameContainer);
     projectNameContainer.appendChild(circleStatus);
     projectNameContainer.appendChild(projectTitle);
-    projectNameContainer.appendChild(activeProjects); 
-    
+    projBtn.appendChild(activeProjects); 
     projContainer.appendChild(editBtn);
     editBtn.appendChild(editImg);
-    
     projContainer.appendChild(deleteBtn);
     deleteBtn.appendChild(deleteImg);
 

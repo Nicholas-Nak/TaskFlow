@@ -29,8 +29,8 @@ button {
   flex-direction: column;
   border-left: 2px solid var(--border-color);
   box-shadow: var(--box-shadow);
-  overflow-y: auto; 
-  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-x:scroll;
 }
 .sidebar::-webkit-scrollbar {
   width: 6px;
@@ -129,11 +129,11 @@ ol {
   color: rgb(0, 0, 0);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-#pen-icon {
+.pen-icon {
   height: 15px;
   padding: 5px;
 }
-#close-icon {
+.close-icon {
   height: 10px;
   padding: 8px;
 }
@@ -147,22 +147,24 @@ ol {
   font-size: 16px;
   justify-content: space-between;
   align-items: center;
-  width: 95%;
+  width: 90%;
   padding: 3px;
+  gap: 3px;
 }
 .project-name-container {
   display: flex;
   gap: 10px;
   align-items: center;
 }
-#inbox {
+.inbox {
   display: flex;
   align-items: center;
-  gap: 5rem;
+  justify-content: space-between;
   transition: background-color 0.3s ease;
+  flex-grow: 1;
   padding: 10px;
   border-radius: 20px;
-  width: 90%;
+ 
 }
 .circle-status-info {
   width: 10px;
@@ -171,42 +173,42 @@ ol {
   background-color: rgb(153, 159, 159);
 }
 
-#quantity-of-inbox {
+.quantity-of-inbox {
   font-size: 14px;
   opacity: 0.5;
 }
-#inbox:hover {
+.inbox:hover {
   background-color: rgba(247, 244, 244, 0.519);
 }
-#icon-edit-btn {
+.icon-edit-btn {
   border-radius: 10px;
 }
-#icon-delete-btn {
+.icon-delete-btn {
   border-radius: 10px;
 }
-#pen-icon {
+.pen-icon {
   opacity: 0;
 }
-#close-icon {
+.close-icon {
   opacity: 0;
 }
 .project:hover {
-  #pen-icon {
+  .pen-icon {
     opacity: 0.3;
   }
-  #close-icon {
+  .close-icon {
     opacity: 0.2;
   }
 }
-#icon-edit-btn:hover {
+.icon-edit-btn:hover {
   background-color: rgb(163, 163, 170);
-  #pen-icon {
+  .pen-icon {
     opacity: 0.7;
   }
 }
-#icon-delete-btn:hover {
+.icon-delete-btn:hover {
   background-color: rgb(163, 163, 170);
-  #close-icon {
+  .close-icon {
     opacity: 1;
   }
 }
@@ -231,7 +233,7 @@ ol {
   color: aliceblue;
   transform: scale(1.05);
 }
-#inbox:focus {
+.inbox:focus {
   background-color: rgba(247, 244, 244, 0.519);
   .circle-status-info {
     background-color: rgb(80, 85, 90);
@@ -261,7 +263,7 @@ header > h2 {
   letter-spacing: 0.5px;
 }
 /*APP-FOOTER*/
-footer{
+footer {
   border-top: 0.7px solid rgb(145, 145, 146);
   box-shadow: 0 1px 1px 0 rgb(172, 162, 162);
   padding: 17px;
@@ -284,7 +286,7 @@ footer{
   width: 90%;
   max-width: 400px;
   background-color: #ffffff;
-  margin: auto; 
+  margin: auto;
 }
 
 #project-dialog::backdrop {
@@ -315,7 +317,9 @@ footer{
   font-size: 1rem;
   outline: none;
   font-family: inherit;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 #project-input:focus {
@@ -336,7 +340,9 @@ footer{
   padding: 8px 16px;
   border-radius: 8px;
   font-weight: bold;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 #project-submit:hover {
@@ -351,7 +357,9 @@ footer{
   border-radius: 8px;
   border: 1px solid rgb(80, 85, 90);
   font-weight: bold;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 #project-close-dialog:hover {
