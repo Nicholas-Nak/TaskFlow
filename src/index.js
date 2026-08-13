@@ -5,7 +5,7 @@ import { initProjectModal } from "./ui/modals";
 
 renderCurrentTime();
 
-//export const appProjects = loadStorage(); 
+export const appProjects = loadStorage(); 
 
 //initProjectModal();
 const dialog = document.getElementById("project-dialog");
