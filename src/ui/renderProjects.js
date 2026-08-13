@@ -1,47 +1,47 @@
-import "../logic/classes"
+import "../logic/classes";
 import closeIconPath from "../images/free-icon-close-1828747.png";
-import editIconPath from "../images/pen.png"
+import editIconPath from "../images/pen.png";
 import { loadStorage, saveStorage } from "../logic/storage";
- 
+
 export function renderProjects() {
   const allProjects = loadStorage();
-  const projectsContainer = document.getElementById('projects-container');
-  
-  projectsContainer.innerHTML = '';
+  const projectsContainer = document.getElementById("projects-container");
+
+  projectsContainer.innerHTML = "";
 
   allProjects.getProjects().forEach((project) => {
-    const projContainer = document.createElement('div');
-    projContainer.classList.add('project');
-    
-    const projBtn = document.createElement('button');
-    projBtn.classList.add('inbox'); 
-    
-    const projectNameContainer = document.createElement('div');
-    projectNameContainer.classList.add('project-name-container');
+    const projContainer = document.createElement("div");
+    projContainer.classList.add("project");
 
-    const circleStatus = document.createElement('div');
+    const projBtn = document.createElement("button");
+    projBtn.classList.add("inbox");
+
+    const projectNameContainer = document.createElement("div");
+    projectNameContainer.classList.add("project-name-container");
+
+    const circleStatus = document.createElement("div");
     circleStatus.classList.add("circle-status-info");
 
-    const projectTitle = document.createElement('span');
+    const projectTitle = document.createElement("span");
     projectTitle.textContent = project.getTitle();
 
-    const activeProjects = document.createElement('span');
-    activeProjects.classList.add("quantity-of-inbox"); 
-    activeProjects.textContent = '(' + project.getActive() + ')';
-    
-    const editBtn = document.createElement('button');
-    editBtn.classList.add("icon-btn", "icon-edit-btn"); 
-    
-    const editImg = document.createElement('img');
-    editImg.classList.add("pen-icon"); 
+    const activeProjects = document.createElement("span");
+    activeProjects.classList.add("quantity-of-inbox");
+    activeProjects.textContent = "(" + project.getActive() + ")";
+
+    const editBtn = document.createElement("button");
+    editBtn.classList.add("icon-btn", "icon-edit-btn");
+
+    const editImg = document.createElement("img");
+    editImg.classList.add("pen-icon");
     editImg.setAttribute("src", editIconPath);
     editBtn.setAttribute("alt", "pen");
-    
-    const deleteBtn = document.createElement('button');
-    deleteBtn.classList.add('icon-btn', 'icon-delete-btn'); 
 
-    const deleteImg = document.createElement('img');
-    deleteImg.classList.add("close-icon"); 
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("icon-btn", "icon-delete-btn");
+
+    const deleteImg = document.createElement("img");
+    deleteImg.classList.add("close-icon");
     deleteImg.setAttribute("src", closeIconPath);
     deleteBtn.setAttribute("alt", "close");
 
@@ -50,16 +50,43 @@ export function renderProjects() {
     projBtn.appendChild(projectNameContainer);
     projectNameContainer.appendChild(circleStatus);
     projectNameContainer.appendChild(projectTitle);
-    projBtn.appendChild(activeProjects); 
+    projBtn.appendChild(activeProjects);
     projContainer.appendChild(editBtn);
     editBtn.appendChild(editImg);
     projContainer.appendChild(deleteBtn);
     deleteBtn.appendChild(deleteImg);
 
-    deleteBtn.addEventListener('click', () => {
+    deleteBtn.addEventListener("click", () => {
       allProjects.deleteProject(project);
       saveStorage(allProjects);
-      renderProjects(); 
+      renderProjects();
     });
-  });
-}
+    const dialogRename = document.getElementById("project-rename-dialog");
+    const renameForm = document.getElementById("project-rename-form");
+    const renameInput = document.getElementById("project-rename-input"); 
+    const closeRenameBtn = document.getElementById("project-rename-close-dialog");
+
+    editBtn.addEventListener("click", () => {
+      renameInput.value = project.getTitle(); 
+      dialogRename.showModal();
+      renameForm.onsubmit = (e) => {
+        e.preventDefault();
+
+        const projectRename = renameInput.value.trim();
+
+        if (projectRename) {
+          project.setTitle(projectRename);
+          saveStorage(allProjects);       
+          renderProjects();            
+        }
+
+        dialogRename.close();
+      };
+    });
+
+    closeRenameBtn.onclick = () => {
+      dialogRename.close();
+      renameForm.reset();
+    };
+  }); 
+} 

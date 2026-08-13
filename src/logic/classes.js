@@ -34,6 +34,9 @@ export class Project {
     this.id = id;
     this.title = title;
   }
+  setTitle(title){
+    this.title = title;
+  }
 
   getTitle() {
     return this.title;

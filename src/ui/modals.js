@@ -10,6 +10,7 @@ export function initProjectModal() {
   const closeBtn = document.getElementById("project-close-dialog");
   const form = document.getElementById("project-form");
   const input = document.getElementById("project-input");
+  
 
   openBtn.addEventListener("click", () => {
     dialog.showModal();

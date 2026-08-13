@@ -278,7 +278,7 @@ footer {
 }
 /*PROJECT-DIALOG*/
 
-#project-dialog {
+#project-dialog,#project-rename-dialog {
   padding: 24px;
   border: none;
   border-radius: 12px;
@@ -288,29 +288,26 @@ footer {
   background-color: #ffffff;
   margin: auto;
 }
-
-#project-dialog::backdrop {
+#project-dialog::backdrop,#project-rename-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
-
-#project-fieldset {
+#project-fieldset,#project-rename-fieldset {
   border: none;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-#project-legend {
+#project-legend, #project-rename-legend{
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 1.3rem;
   font-weight: bold;
   color: #45494e;
   margin-bottom: 5px;
 }
-
-#project-input {
+#project-input,#project-rename-input {
   padding: 12px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -322,19 +319,19 @@ footer {
     box-shadow 0.3s ease;
 }
 
-#project-input:focus {
+#project-input:focus,#project-rename-input:focus{
   border-color: rgb(80, 85, 90);
   box-shadow: 0 0 5px rgba(80, 85, 90, 0.3);
 }
 
-.dialog-buttons {
+.dialog-buttons, .dialog-rename-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
   margin-top: 10px;
 }
 
-#project-submit {
+#project-submit,#project-rename-submit{
   background-color: rgb(80, 85, 90);
   color: aliceblue;
   padding: 8px 16px;
@@ -345,12 +342,12 @@ footer {
     transform 0.2s ease;
 }
 
-#project-submit:hover {
+#project-submit:hover, #project-rename-submit:hover {
   background-color: #2c2f33;
   transform: scale(1.05);
 }
 
-#project-close-dialog {
+#project-close-dialog,#project-rename-close-dialog {
   background-color: transparent;
   color: rgb(80, 85, 90);
   padding: 8px 16px;
@@ -362,7 +359,7 @@ footer {
     color 0.3s ease;
 }
 
-#project-close-dialog:hover {
+#project-close-dialog:hover,#project-rename-close-dialog:hover {
   background-color: rgb(80, 85, 90);
   color: aliceblue;
 }
