@@ -2,7 +2,7 @@ import "../logic/classes";
 import closeIconPath from "../images/free-icon-close-1828747.png";
 import editIconPath from "../images/pen.png";
 import { loadStorage, saveStorage } from "../logic/storage";
-
+import { renderProjectView } from "./renderProjectView";
 export function renderProjects() {
   const allProjects = loadStorage();
   const projectsContainer = document.getElementById("projects-container");
@@ -65,7 +65,7 @@ export function renderProjects() {
     const renameForm = document.getElementById("project-rename-form");
     const renameInput = document.getElementById("project-rename-input"); 
     const closeRenameBtn = document.getElementById("project-rename-close-dialog");
-
+     projBtn.addEventListener("click", renderProjectView);
     editBtn.addEventListener("click", () => {
       renameInput.value = project.getTitle(); 
       dialogRename.showModal();
