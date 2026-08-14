@@ -1,5 +1,6 @@
 import { ta } from "date-fns/locale";
 import { clearMain } from "./dom";
+import { openTaskModal } from "./modals";
 
 export function renderProjectView(project){
     clearMain();
@@ -21,7 +22,10 @@ export function renderProjectView(project){
     
     const addbtn = document.createElement('button');
     addbtn.id = "create-task-btn";
-    addbtn.textContent = "+ Додати завдання"
+    addbtn.textContent = "+ Додати завдання";
+    addbtn.addEventListener("click", () => {
+    openTaskModal(project);
+});
 
     mainContent.appendChild(header);
     header.appendChild(projectName);

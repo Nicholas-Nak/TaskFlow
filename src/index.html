@@ -89,5 +89,32 @@
     </fieldset>
   </form>
 </dialog>
+
+<dialog id="task-dialog">
+  <form id="task-form">
+    <fieldset id="task-fieldset">
+      <legend id="task-legend">Нове завдання</legend>
+      
+      <input type="text" id="task-title-input" placeholder="Назва завдання..." required>
+      <textarea id="task-desc-input" placeholder="Опис " rows="3"></textarea>
+      
+      <div class="task-form-row">
+        <input type="date" id="task-date-input">
+        <select id="task-priority-select">
+          <option value="low">Низький </option>
+          <option value="medium" selected>Середній </option>
+          <option value="high">Високий </option>
+        </select>
+      </div>
+
+      <textarea id="task-notes-input" placeholder="Нотатки..." rows="2"></textarea>
+
+      <div class="dialog-buttons">
+        <button type="button" id="task-close-dialog">Скасувати</button>
+        <button type="submit" id="task-submit">Додати завдання</button>
+      </div>
+    </fieldset>
+  </form>
+</dialog>
   </body>
 </html>
