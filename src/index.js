@@ -1,17 +1,30 @@
 import "./styles.css";
 import { renderCurrentTime } from "./utils/dateUtils";
-import { loadStorage } from "./logic/storage";
-import { initProjectModal } from "./ui/modals";
+import { loadStorage, saveStorage } from "./logic/storage";
 import { renderProjects } from "./ui/renderProjects";
+import { Project, Task } from "./logic/classes";
+import { initProjectModal, initTaskModal, initDeleteConfirmModal } from "./ui/modals";
+
+export const appProjects = loadStorage();
+
+const hasBasicProject = appProjects
+  .getProjects()
+  .some((p) => p.id === "inbox");
+
+if (!hasBasicProject) {
+  const basicProject = new Project("Вхідний", "inbox");
+  appProjects.addProject(testProject);
+  saveStorage(appProjects);
+}
+
 
 renderCurrentTime();
 renderProjects();
-
-export const appProjects = loadStorage(); 
-
 initProjectModal();
+initTaskModal();
+initDeleteConfirmModal();
 
-function clearMain() {
+export function clearMain() {
   const main = document.getElementById("dynamic-content");
   main.innerHTML = "";
 }

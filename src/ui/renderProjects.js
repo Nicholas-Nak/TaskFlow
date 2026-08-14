@@ -1,8 +1,9 @@
-import "../logic/classes";
+
 import closeIconPath from "../images/free-icon-close-1828747.png";
 import editIconPath from "../images/pen.png";
 import { loadStorage, saveStorage } from "../logic/storage";
-
+import { renderProjectView } from "./renderProjectView";
+import { openDeleteConfirmModal } from "./modals";
 export function renderProjects() {
   const allProjects = loadStorage();
   const projectsContainer = document.getElementById("projects-container");
@@ -36,7 +37,7 @@ export function renderProjects() {
     editImg.classList.add("pen-icon");
     editImg.setAttribute("src", editIconPath);
     editBtn.setAttribute("alt", "pen");
-
+if (project.id !== "inbox") {
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("icon-btn", "icon-delete-btn");
 
@@ -44,7 +45,12 @@ export function renderProjects() {
     deleteImg.classList.add("close-icon");
     deleteImg.setAttribute("src", closeIconPath);
     deleteBtn.setAttribute("alt", "close");
-
+      projContainer.appendChild(deleteBtn);
+    deleteBtn.appendChild(deleteImg);
+      deleteBtn.addEventListener("click", () => {
+    openDeleteConfirmModal(project);
+});
+}
     projectsContainer.appendChild(projContainer);
     projContainer.appendChild(projBtn);
     projBtn.appendChild(projectNameContainer);
@@ -53,18 +59,17 @@ export function renderProjects() {
     projBtn.appendChild(activeProjects);
     projContainer.appendChild(editBtn);
     editBtn.appendChild(editImg);
-    projContainer.appendChild(deleteBtn);
-    deleteBtn.appendChild(deleteImg);
 
-    deleteBtn.addEventListener("click", () => {
-      allProjects.deleteProject(project);
-      saveStorage(allProjects);
-      renderProjects();
-    });
+  
     const dialogRename = document.getElementById("project-rename-dialog");
     const renameForm = document.getElementById("project-rename-form");
     const renameInput = document.getElementById("project-rename-input"); 
     const closeRenameBtn = document.getElementById("project-rename-close-dialog");
+
+     projBtn.addEventListener("click", ()=>{
+      renderProjectView(project)});
+
+
 
     editBtn.addEventListener("click", () => {
       renameInput.value = project.getTitle(); 
@@ -77,7 +82,8 @@ export function renderProjects() {
         if (projectRename) {
           project.setTitle(projectRename);
           saveStorage(allProjects);       
-          renderProjects();            
+          renderProjects();
+          renderProjectView(project);            
         }
 
         dialogRename.close();

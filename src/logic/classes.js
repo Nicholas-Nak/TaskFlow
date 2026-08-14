@@ -1,40 +1,42 @@
 export class Projects {
   #projects = [];
-  quantity = 0;
 
   addProject(proj) {
     this.#projects.push(proj);
-    this.quantity++;
   }
 
   deleteProject(proj) {
+    if (proj.id === "inbox") {
+      return; 
+    }
     const idToDelete = proj.id;
     this.#projects = this.#projects.filter((p) => p.id !== idToDelete);
-    this.quantity--;
   }
 
   getProjects() {
     return this.#projects;
   }
 
+  getQuantity() {
+    return this.#projects.length;
+  }
+
   toJSON() {
     return {
       projects: this.#projects,
-      quantity: this.quantity,
     };
   }
 }
 
 export class Project {
-  #active = 0;
-  #completed = 0;
   #tasks = [];
 
   constructor(title, id = crypto.randomUUID()) {
     this.id = id;
     this.title = title;
   }
-  setTitle(title){
+
+  setTitle(title) {
     this.title = title;
   }
 
@@ -44,21 +46,19 @@ export class Project {
 
   addTask(task) {
     this.#tasks.push(task);
-    this.#active++;
   }
 
   deleteTask(task) {
     const idToDelete = task.id;
     this.#tasks = this.#tasks.filter((task) => task.id !== idToDelete);
-    this.#active--;
   }
 
   getActive() {
-    return this.#active;
+    return this.#tasks.filter((task) => task.getStatus() === "active").length;
   }
 
-  setActive(count) {
-    this.#active = count;
+  getCompleted() {
+    return this.#tasks.filter((task) => task.getStatus() === "completed").length;
   }
 
   getTasks() {
@@ -69,21 +69,22 @@ export class Project {
     return {
       id: this.id,
       title: this.title,
-      active: this.#active,
-      completed: this.#completed,
       tasks: this.#tasks,
     };
   }
 }
 
-export class Todo {
+export class Task {
   #description = "";
   #priority = "";
   #notes = "";
+  #date = "";
 
-  constructor(title, id = crypto.randomUUID(), status = "active") {
+  constructor(title, date = "", priority = "", id = crypto.randomUUID(), status = "active") {
     this.id = id;
     this.title = title;
+    this.#date = date;
+    this.#priority = priority;
     this.status = status;
   }
 
@@ -93,6 +94,14 @@ export class Todo {
 
   setTitle(title) {
     this.title = title;
+  }
+
+  getDate() {
+    return this.#date;
+  }
+
+  setDate(date) {
+    this.#date = date;
   }
 
   getDescription() {
@@ -107,8 +116,16 @@ export class Todo {
     return this.status;
   }
 
-  changeStatus(status) {
-    this.status = status;
+  setActive() {
+    this.status = "active";
+  }
+
+  isCompleted() {
+    return this.status === "completed";
+  }
+
+  setCompleted(isComplete) {
+    this.status = isComplete ? "completed" : "active";
   }
 
   getPriority() {
@@ -131,6 +148,7 @@ export class Todo {
     return {
       id: this.id,
       title: this.title,
+      date: this.#date,
       status: this.status,
       description: this.#description,
       priority: this.#priority,

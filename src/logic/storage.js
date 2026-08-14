@@ -1,4 +1,4 @@
-import { Projects, Project, Todo } from "./classes";
+import { Projects, Project, Task } from "./classes";
 
 export function saveStorage(appProjects) {
   localStorage.setItem("todoList_data", JSON.stringify(appProjects));
@@ -16,7 +16,7 @@ export function loadStorage() {
       const project = new Project(projData.title, projData.id);
 
       projData.tasks.forEach((taskData) => {
-        const task = new Todo(taskData.title, taskData.id, taskData.status);
+        const task = new Task(taskData.title,taskData.date,taskData.priority, taskData.id, taskData.status);
         project.addTask(task);
       });
 

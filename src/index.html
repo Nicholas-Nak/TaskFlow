@@ -50,7 +50,7 @@
 
     <div class="app-layout">
       <header class="app-header">
-        <h2>Do it right now</h2>
+        <h2>Давай Геш , давай х..</h2>
         <div class="current-date-container">
           <p> </p>
         </div>
@@ -58,7 +58,7 @@
 
       <main id="dynamic-content"></main>
       <footer>
-        <p>WORK SMART NOT HARD</p>
+        <p>Мотивація то є сила</p>
       </footer>
     </div>
     <dialog id="project-dialog">
@@ -88,6 +88,43 @@
       </div>
     </fieldset>
   </form>
+</dialog>
+
+<dialog id="task-dialog">
+  <form id="task-form">
+    <fieldset id="task-fieldset">
+      <legend id="task-legend">Нове завдання</legend>
+      
+      <input type="text" id="task-title-input" placeholder="Назва завдання..." required>
+      <textarea id="task-desc-input" placeholder="Опис " rows="3"></textarea>
+      
+      <div class="task-form-row">
+        <input type="date" id="task-date-input">
+        <select id="task-priority-select">
+          <option value="low">Низький </option>
+          <option value="medium" selected>Середній </option>
+          <option value="high">Високий </option>
+        </select>
+      </div>
+
+      <textarea id="task-notes-input" placeholder="Нотатки..." rows="2"></textarea>
+
+      <div class="dialog-buttons">
+        <button type="button" id="task-close-dialog">Скасувати</button>
+        <button type="submit" id="task-submit">Додати завдання</button>
+      </div>
+    </fieldset>
+  </form>
+</dialog>
+<dialog id="delete-confirm-dialog">
+  <div class="confirm-content">
+    <h3 id="confirm-title">Видалити проєкт?</h3>
+    <p>Ви впевнені, що хочете видалити цей проєкт? Усі завдання всередині будуть втрачені назавжди.</p>
+    <div class="dialog-buttons" style="justify-content: center; margin-top: 20px;">
+      <button type="button" id="cancel-delete-btn">Скасувати</button>
+      <button type="button" id="confirm-delete-btn">Видалити</button>
+    </div>
+  </div>
 </dialog>
   </body>
 </html>
