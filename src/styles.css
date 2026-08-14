@@ -727,3 +727,65 @@ footer {
   background-color: rgb(80, 85, 90);
   color: aliceblue;
 }
+/*CONFIRM-DELETION-DIALOG*/
+#delete-confirm-dialog {
+  padding: 24px;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  background-color: #ffffff;
+  margin: auto;
+  text-align: center;
+}
+
+#delete-confirm-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+#delete-confirm-dialog h3 {
+  color: rgb(80, 85, 90);
+  margin-bottom: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#delete-confirm-dialog p {
+  color: #75797c;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#confirm-delete-btn {
+  background-color: #ce7373; 
+  color: aliceblue;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#confirm-delete-btn:hover {
+  background-color: #b35b5b;
+  transform: scale(1.05);
+}
+
+#cancel-delete-btn {
+  background-color: transparent;
+  color: rgb(80, 85, 90);
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgb(80, 85, 90);
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#cancel-delete-btn:hover {
+  background-color: rgb(80, 85, 90);
+  color: aliceblue;
+}

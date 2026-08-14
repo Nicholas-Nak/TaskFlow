@@ -80,3 +80,37 @@ export function initProjectModal() {
     form.reset();
   });
 }
+let projectToDelete = null;
+
+export function openDeleteConfirmModal(project) {
+  projectToDelete = project;
+  const dialog = document.getElementById("delete-confirm-dialog");
+  dialog.showModal();
+}
+
+export function initDeleteConfirmModal() {
+  const dialog = document.getElementById("delete-confirm-dialog");
+  const cancelBtn = document.getElementById("cancel-delete-btn");
+  const confirmBtn = document.getElementById("confirm-delete-btn");
+
+  cancelBtn.addEventListener("click", () => {
+    projectToDelete = null; 
+    dialog.close();
+  });
+
+  confirmBtn.addEventListener("click", () => {
+    if (projectToDelete) {
+      appProjects.deleteProject(projectToDelete);
+      saveStorage(appProjects);
+      renderProjects();
+
+      const inboxProject = appProjects.getProjects().find(p => p.id === "inbox");
+      if (inboxProject) {
+        renderProjectView(inboxProject);
+      }
+    }
+    
+    projectToDelete = null;
+    dialog.close();
+  });
+}

@@ -1,10 +1,9 @@
 import "./styles.css";
 import { renderCurrentTime } from "./utils/dateUtils";
 import { loadStorage, saveStorage } from "./logic/storage";
-import { initProjectModal } from "./ui/modals";
 import { renderProjects } from "./ui/renderProjects";
 import { Project, Task } from "./logic/classes";
-import { initTaskModal } from "./ui/modals";
+import { initProjectModal, initTaskModal, initDeleteConfirmModal } from "./ui/modals";
 
 export const appProjects = loadStorage();
 
@@ -23,6 +22,7 @@ renderCurrentTime();
 renderProjects();
 initProjectModal();
 initTaskModal();
+initDeleteConfirmModal();
 
 export function clearMain() {
   const main = document.getElementById("dynamic-content");

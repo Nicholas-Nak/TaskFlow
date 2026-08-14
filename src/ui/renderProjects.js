@@ -3,6 +3,7 @@ import closeIconPath from "../images/free-icon-close-1828747.png";
 import editIconPath from "../images/pen.png";
 import { loadStorage, saveStorage } from "../logic/storage";
 import { renderProjectView } from "./renderProjectView";
+import { openDeleteConfirmModal } from "./modals";
 export function renderProjects() {
   const allProjects = loadStorage();
   const projectsContainer = document.getElementById("projects-container");
@@ -47,13 +48,7 @@ if (project.id !== "inbox") {
       projContainer.appendChild(deleteBtn);
     deleteBtn.appendChild(deleteImg);
       deleteBtn.addEventListener("click", () => {
-    allProjects.deleteProject(project);
-    saveStorage(allProjects);
-    renderProjects();
-    const inboxProject = allProjects.getProjects().find(p => p.id === "inbox");
-    if (inboxProject) {
-        renderProjectView(inboxProject);
-    }
+    openDeleteConfirmModal(project);
 });
 }
     projectsContainer.appendChild(projContainer);
