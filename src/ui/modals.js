@@ -1,15 +1,52 @@
 import { Project, Task } from "../logic/classes";
 import { saveStorage } from "../logic/storage";
-import { appProjects } from "../index";
+import { getAppProjects } from "../index";
 import { renderProjects } from "./renderProjects";
 import { renderProjectView } from "./renderProjectView";
 
 let currentTargetProject = null;
+let currentEditingTask = null;
 
 export function openTaskModal(project) {
   currentTargetProject = project;
-  const taskDialog = document.getElementById("task-dialog");
-  taskDialog.showModal();
+  currentEditingTask = null;
+
+  const dialog = document.getElementById("task-dialog");
+  const form = document.getElementById("task-form");
+  const legend = document.getElementById("task-legend");
+  const submitBtn = document.getElementById("task-submit");
+
+  form.reset();
+  if (legend) {
+    legend.textContent = "Створити завдання";
+    submitBtn.textContent = "Cтворити";
+  }
+
+  dialog.showModal();
+}
+
+export function openEditTaskModal(task, project) {
+  currentTargetProject = project;
+  currentEditingTask = task;
+
+  const dialog = document.getElementById("task-dialog");
+  const legend = document.getElementById("task-legend");
+  const submitBtn = document.getElementById("task-submit");
+
+  if (legend) {
+    legend.textContent = "Редагувати завдання";
+    submitBtn.textContent = "Змінити";
+  }
+
+  document.getElementById("task-title-input").value = task.getTitle();
+  document.getElementById("task-desc-input").value =
+    task.getDescription() || "";
+  document.getElementById("task-date-input").value = task.getDate() || "";
+  document.getElementById("task-priority-select").value =
+    task.getPriority() || "";
+  document.getElementById("task-notes-input").value = task.getNotes() || "";
+
+  dialog.showModal();
 }
 
 export function initTaskModal() {
@@ -20,6 +57,7 @@ export function initTaskModal() {
   closeBtn.addEventListener("click", () => {
     dialog.close();
     form.reset();
+    currentEditingTask = null;
   });
 
   form.addEventListener("submit", (e) => {
@@ -32,19 +70,26 @@ export function initTaskModal() {
     const notes = document.getElementById("task-notes-input").value.trim();
 
     if (title && currentTargetProject) {
-      const newTask = new Task(title, date, priority);
-      newTask.setDescription(desc);
-      newTask.setNotes(notes);
-
-      currentTargetProject.addTask(newTask);
-
-      saveStorage(appProjects);
-
+      if (currentEditingTask) {
+        currentEditingTask.setTitle(title);
+        currentEditingTask.setDescription(desc);
+        currentEditingTask.setDate(date);
+        currentEditingTask.setPriority(priority);
+        currentEditingTask.setNotes(notes);
+      } else {
+        const newTask = new Task(title, date, priority);
+        newTask.setDescription(desc);
+        newTask.setNotes(notes);
+        currentTargetProject.addTask(newTask);
+      }
+      saveStorage(getAppProjects());
       renderProjectView(currentTargetProject);
+      renderProjects();
     }
 
     dialog.close();
     form.reset();
+    currentEditingTask = null;
   });
 }
 export function initProjectModal() {
@@ -70,9 +115,9 @@ export function initProjectModal() {
 
     if (projectName) {
       const newProject = new Project(projectName);
-      appProjects.addProject(newProject);
-      saveStorage(appProjects);
-      console.log("Створено новий проєкт", appProjects.getProjects());
+      getAppProjects().addProject(newProject);
+      saveStorage(getAppProjects());
+      console.log("Створено новий проєкт", getAppProjects().getProjects());
       renderProjects();
     }
 
@@ -94,22 +139,24 @@ export function initDeleteConfirmModal() {
   const confirmBtn = document.getElementById("confirm-delete-btn");
 
   cancelBtn.addEventListener("click", () => {
-    projectToDelete = null; 
+    projectToDelete = null;
     dialog.close();
   });
 
   confirmBtn.addEventListener("click", () => {
     if (projectToDelete) {
-      appProjects.deleteProject(projectToDelete);
-      saveStorage(appProjects);
+      getAppProjects().deleteProject(projectToDelete);
+      saveStorage(getAppProjects());
       renderProjects();
 
-      const inboxProject = appProjects.getProjects().find(p => p.id === "inbox");
+      const inboxProject = getAppProjects()
+        .getProjects()
+        .find((p) => p.id === "inbox");
       if (inboxProject) {
         renderProjectView(inboxProject);
       }
     }
-    
+
     projectToDelete = null;
     dialog.close();
   });

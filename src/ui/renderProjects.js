@@ -1,11 +1,12 @@
 
 import closeIconPath from "../images/free-icon-close-1828747.png";
 import editIconPath from "../images/pen.png";
-import { loadStorage, saveStorage } from "../logic/storage";
+import { saveStorage } from "../logic/storage";
 import { renderProjectView } from "./renderProjectView";
 import { openDeleteConfirmModal } from "./modals";
+import { getAppProjects } from "../index";
 export function renderProjects() {
-  const allProjects = loadStorage();
+ const allProjects = getAppProjects();
   const projectsContainer = document.getElementById("projects-container");
 
   projectsContainer.innerHTML = "";

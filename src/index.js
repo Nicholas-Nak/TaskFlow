@@ -6,14 +6,16 @@ import { Project, Task } from "./logic/classes";
 import { initProjectModal, initTaskModal, initDeleteConfirmModal } from "./ui/modals";
 
 export const appProjects = loadStorage();
-
+export function getAppProjects() {
+  return appProjects;
+}
 const hasBasicProject = appProjects
   .getProjects()
   .some((p) => p.id === "inbox");
 
 if (!hasBasicProject) {
   const basicProject = new Project("Вхідний", "inbox");
-  appProjects.addProject(testProject);
+  appProjects.addProject(basicProject);
   saveStorage(appProjects);
 }
 
