@@ -117,6 +117,7 @@ export function renderProjectView(project){
         const detailsBtn = document.createElement("button");
         detailsBtn.textContent = "Деталі";
         detailsBtn.classList.add("task-btn", "details-btn");
+        detailsBtn.addEventListener("click", () => handleViewDetails(task, project));
 
         const editBtn = document.createElement("button");
         editBtn.textContent = "Редагувати";
