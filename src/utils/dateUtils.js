@@ -1,4 +1,4 @@
-import { isToday, isAfter, addDays, parseISO, startOfDay } from 'date-fns';
+import { isToday, isAfter, endOfDay, parseISO } from 'date-fns';
 import { format } from 'date-fns';
 import { uk } from 'date-fns/locale';
 
@@ -28,13 +28,13 @@ export function getTodayTasks(appProjects) {
 export function getFutureTasks(appProjects) {
     const allTasks = getAllTasks(appProjects);
     
-    const weekFromNow = addDays(startOfDay(new Date()), 7);
+    const endOfToday = endOfDay(new Date());
     
     return allTasks.filter(task => {
         if (!task.getDate()) return false;
         
         const taskDate = parseISO(task.getDate());
-        return isAfter(taskDate, weekFromNow);
+        return isAfter(taskDate, endOfToday);
     });
 }
 

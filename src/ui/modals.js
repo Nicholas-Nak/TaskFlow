@@ -120,7 +120,7 @@ export function initNavigationFilters() {
             const futureTasks = getFutureTasks(getAppProjects());
             renderFilteredView(
                 "Майбутні", 
-                "Завдання, заплановані більше ніж на тиждень вперед.", 
+                "Завдання, заплановані на завтра і пізніше.", 
                 futureTasks
             );
         });

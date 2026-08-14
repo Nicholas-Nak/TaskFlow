@@ -9,6 +9,7 @@ import {
 import { renderProjects } from "./renderProjects";
 import { findProjectByTask } from "../utils/dateUtils";
 import { getAppProjects } from "..";
+import { saveStorage } from "../logic/storage";
 
 export function renderProjectView(project) {
   clearMain();
