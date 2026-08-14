@@ -2,7 +2,8 @@ import { Project, Task } from "../logic/classes";
 import { saveStorage } from "../logic/storage";
 import { getAppProjects } from "../index";
 import { renderProjects } from "./renderProjects";
-import { renderProjectView } from "./renderProjectView";
+import { renderProjectView, renderFilteredView } from "./renderProjectView";
+import { getTodayTasks, getFutureTasks, getCompletedTasks } from "../utils/dateUtils";
 
 let currentTargetProject = null;
 let currentEditingTask = null;
@@ -92,6 +93,50 @@ export function initTaskModal() {
     currentEditingTask = null;
   });
 }
+export function initNavigationFilters() {
+    const overviewBtn = document.getElementById("btn-overview");
+    const todayBtn = document.getElementById("btn-today");
+    const upcomingBtn = document.getElementById("btn-upcoming");
+    const completedBtn = document.getElementById("btn-completed");
+
+    if (overviewBtn) {
+        overviewBtn.addEventListener("click", () => {
+            const inboxProject = getAppProjects().getProjects().find(p => p.id === "inbox");
+            if (inboxProject) renderProjectView(inboxProject);
+        });
+    }
+    if (todayBtn) {
+        todayBtn.addEventListener("click", () => {
+            const todayTasks = getTodayTasks(getAppProjects());
+            renderFilteredView(
+                "Сьогодні", 
+                "Завдання, які потрібно виконати сьогодні.", 
+                todayTasks
+            );
+        });
+    }
+    if (upcomingBtn) {
+        upcomingBtn.addEventListener("click", () => {
+            const futureTasks = getFutureTasks(getAppProjects());
+            renderFilteredView(
+                "Майбутні", 
+                "Завдання, заплановані більше ніж на тиждень вперед.", 
+                futureTasks
+            );
+        });
+    }
+    if (completedBtn) {
+        completedBtn.addEventListener("click", () => {
+            const completedTasks = getCompletedTasks(getAppProjects());
+            renderFilteredView(
+                "Завершено", 
+                "Список усіх виконаних завдань.", 
+                completedTasks
+            );
+        });
+    }
+}
+let projectToDelete = null;
 export function initProjectModal() {
   const dialog = document.getElementById("project-dialog");
   const openBtn = document.getElementById("New-project");
@@ -99,34 +144,38 @@ export function initProjectModal() {
   const form = document.getElementById("project-form");
   const input = document.getElementById("project-input");
 
-  openBtn.addEventListener("click", () => {
-    dialog.showModal();
-  });
+  if (openBtn) {
+    openBtn.addEventListener("click", () => {
+      dialog.showModal();
+    });
+  }
 
-  closeBtn.addEventListener("click", () => {
-    dialog.close();
-    form.reset();
-  });
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      dialog.close();
+      form.reset();
+    });
+  }
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-    const projectName = input.value.trim();
+      const projectName = input.value.trim();
 
-    if (projectName) {
-      const newProject = new Project(projectName);
-      getAppProjects().addProject(newProject);
-      saveStorage(getAppProjects());
-      console.log("Створено новий проєкт", getAppProjects().getProjects());
-      renderProjects();
-    }
+      if (projectName) {
+        const newProject = new Project(projectName);
+        getAppProjects().addProject(newProject);
+        saveStorage(getAppProjects());
+        console.log("Створено новий проєкт", getAppProjects().getProjects());
+        renderProjects();
+      }
 
-    dialog.close();
-    form.reset();
-  });
+      dialog.close();
+      form.reset();
+    });
+  }
 }
-let projectToDelete = null;
-
 export function openDeleteConfirmModal(project) {
   projectToDelete = project;
   const dialog = document.getElementById("delete-confirm-dialog");
