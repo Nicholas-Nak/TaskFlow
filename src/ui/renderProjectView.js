@@ -1,3 +1,4 @@
+import { ta } from "date-fns/locale";
 import { clearMain } from "./dom";
 
 export function renderProjectView(project){
@@ -132,8 +133,14 @@ export function renderProjectView(project){
         checkbox.addEventListener("change", () => {
             if (checkbox.checked) {
                 taskCard.classList.add("completed");
+                task.setCompleted(true); 
             } else {
                 taskCard.classList.remove("completed");
+                task.setCompleted(false);
+            }
+            const projectStatus = document.getElementById("project-header-status");
+            if (projectStatus) {
+                projectStatus.textContent = project.getActive() + ' активних   ' + project.getCompleted() + ' завершених';
             }
         });
     });

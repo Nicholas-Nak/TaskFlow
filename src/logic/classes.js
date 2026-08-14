@@ -113,8 +113,8 @@ export class Task {
     return this.status;
   }
 
-  changeStatus(status) {
-    this.status = status;
+  setActive() {
+    this.status = "active";
   }
 
   isCompleted() {

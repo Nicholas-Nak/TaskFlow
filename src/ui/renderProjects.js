@@ -60,6 +60,7 @@ export function renderProjects() {
       allProjects.deleteProject(project);
       saveStorage(allProjects);
       renderProjects();
+      renderProjectView(project);
     });
     const dialogRename = document.getElementById("project-rename-dialog");
     const renameForm = document.getElementById("project-rename-form");
