@@ -1,6 +1,6 @@
 import { Project, Task } from "../logic/classes";
 import { saveStorage } from "../logic/storage";
-import { appProjects } from "../index";
+import { getAppProjects } from "../index";
 import { renderProjects } from "./renderProjects";
 import { renderProjectView } from "./renderProjectView";
 
@@ -38,9 +38,10 @@ export function initTaskModal() {
 
       currentTargetProject.addTask(newTask);
 
-      saveStorage(appProjects);
+      saveStorage(getAppProjects());
 
       renderProjectView(currentTargetProject);
+      renderProjects();
     }
 
     dialog.close();
@@ -70,9 +71,9 @@ export function initProjectModal() {
 
     if (projectName) {
       const newProject = new Project(projectName);
-      appProjects.addProject(newProject);
-      saveStorage(appProjects);
-      console.log("Створено новий проєкт", appProjects.getProjects());
+     getAppProjects().addProject(newProject);
+      saveStorage(getAppProjects());
+      console.log("Створено новий проєкт", getAppProjects().getProjects());
       renderProjects();
     }
 
@@ -100,11 +101,11 @@ export function initDeleteConfirmModal() {
 
   confirmBtn.addEventListener("click", () => {
     if (projectToDelete) {
-      appProjects.deleteProject(projectToDelete);
-      saveStorage(appProjects);
+      getAppProjects().deleteProject(projectToDelete);
+      saveStorage(getAppProjects());
       renderProjects();
 
-      const inboxProject = appProjects.getProjects().find(p => p.id === "inbox");
+      const inboxProject = getAppProjects().getProjects().find(p => p.id === "inbox");
       if (inboxProject) {
         renderProjectView(inboxProject);
       }

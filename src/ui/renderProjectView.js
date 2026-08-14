@@ -1,6 +1,8 @@
 import { ta } from "date-fns/locale";
 import { clearMain } from "./dom";
 import { openTaskModal } from "./modals";
+import { handleEditTask, handleDeleteTask, handleViewDetails } from "./taskActions";
+import { renderProjects } from "./renderProjects";
 
 export function renderProjectView(project){
     clearMain();
@@ -123,6 +125,9 @@ export function renderProjectView(project){
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "Видалити";
         deleteBtn.classList.add("task-btn", "delete-btn");
+        deleteBtn.addEventListener('click', ()=>{
+            handleDeleteTask(task,project)
+        })
 
         actionsContainer.appendChild(detailsBtn);
         actionsContainer.appendChild(editBtn);
@@ -146,6 +151,7 @@ export function renderProjectView(project){
             if (projectStatus) {
                 projectStatus.textContent = project.getActive() + ' активних   ' + project.getCompleted() + ' завершених';
             }
+            renderProjects();
         });
     });
 }
