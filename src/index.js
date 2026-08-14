@@ -13,10 +13,11 @@ const hasBasicProject = appProjects
   .some((p) => p.id === "inbox");
 
 if (!hasBasicProject) {
-  const testProject = new Project("Вхідний", "inbox");
+  const basicProject = new Project("Вхідний", "inbox");
   appProjects.addProject(testProject);
   saveStorage(appProjects);
 }
+
 
 renderCurrentTime();
 renderProjects();

@@ -47,11 +47,14 @@ if (project.id !== "inbox") {
       projContainer.appendChild(deleteBtn);
     deleteBtn.appendChild(deleteImg);
       deleteBtn.addEventListener("click", () => {
-      allProjects.deleteProject(project);
-      saveStorage(allProjects);
-      renderProjects();
-      renderProjectView(project);
-    });
+    allProjects.deleteProject(project);
+    saveStorage(allProjects);
+    renderProjects();
+    const inboxProject = allProjects.getProjects().find(p => p.id === "inbox");
+    if (inboxProject) {
+        renderProjectView(inboxProject);
+    }
+});
 }
     projectsContainer.appendChild(projContainer);
     projContainer.appendChild(projBtn);
