@@ -36,7 +36,7 @@ export function renderProjects() {
     editImg.classList.add("pen-icon");
     editImg.setAttribute("src", editIconPath);
     editBtn.setAttribute("alt", "pen");
-
+if (project.id !== "inbox") {
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("icon-btn", "icon-delete-btn");
 
@@ -44,7 +44,15 @@ export function renderProjects() {
     deleteImg.classList.add("close-icon");
     deleteImg.setAttribute("src", closeIconPath);
     deleteBtn.setAttribute("alt", "close");
-
+      projContainer.appendChild(deleteBtn);
+    deleteBtn.appendChild(deleteImg);
+      deleteBtn.addEventListener("click", () => {
+      allProjects.deleteProject(project);
+      saveStorage(allProjects);
+      renderProjects();
+      renderProjectView(project);
+    });
+}
     projectsContainer.appendChild(projContainer);
     projContainer.appendChild(projBtn);
     projBtn.appendChild(projectNameContainer);
@@ -53,15 +61,8 @@ export function renderProjects() {
     projBtn.appendChild(activeProjects);
     projContainer.appendChild(editBtn);
     editBtn.appendChild(editImg);
-    projContainer.appendChild(deleteBtn);
-    deleteBtn.appendChild(deleteImg);
 
-    deleteBtn.addEventListener("click", () => {
-      allProjects.deleteProject(project);
-      saveStorage(allProjects);
-      renderProjects();
-      renderProjectView(project);
-    });
+  
     const dialogRename = document.getElementById("project-rename-dialog");
     const renameForm = document.getElementById("project-rename-form");
     const renameInput = document.getElementById("project-rename-input"); 

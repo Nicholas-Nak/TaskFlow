@@ -10,21 +10,10 @@ export const appProjects = loadStorage();
 
 const hasBasicProject = appProjects
   .getProjects()
-  .some((p) => p.getTitle() === "Basic");
+  .some((p) => p.id === "inbox");
 
 if (!hasBasicProject) {
-  const testProject = new Project("Basic");
-
-  const task1 = new Task("Суда", "2026-08-15", "High");
-  const task2 = new Task("Спати", "2026-08-20", "Medium");
-  const task3 = new Task("Пофіксити", "", "Low");
-
-  task3.setCompleted(true);
-
-  testProject.addTask(task1);
-  testProject.addTask(task2);
-  testProject.addTask(task3);
-
+  const testProject = new Project("Вхідний", "inbox");
   appProjects.addProject(testProject);
   saveStorage(appProjects);
 }

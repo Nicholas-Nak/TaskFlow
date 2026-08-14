@@ -6,6 +6,9 @@ export class Projects {
   }
 
   deleteProject(proj) {
+    if (proj.id === "inbox") {
+      return; 
+    }
     const idToDelete = proj.id;
     this.#projects = this.#projects.filter((p) => p.id !== idToDelete);
   }

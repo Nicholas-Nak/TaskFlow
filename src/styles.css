@@ -12,6 +12,8 @@ body {
   background: linear-gradient(180deg, #9d9fa2 0%, #dee3e6 100%);
   display: grid;
   grid-template-columns: 1fr 5fr;
+ height: 100vh; 
+  overflow: hidden;
 }
 button {
   background: none;
@@ -24,7 +26,7 @@ button {
 /*SIDEBAR*/
 .sidebar {
   background-color: rgba(185, 186, 191, 0.797);
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   border-left: 2px solid var(--border-color);
@@ -242,7 +244,8 @@ ol {
 /*APP*/
 .app-layout {
   display: grid;
-  grid-template-rows: 1fr 10fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
 }
 /*APP-HEADER*/
 header {
@@ -253,6 +256,7 @@ header {
   justify-content: space-around;
   align-items: center;
   color: #45494e;
+  
 }
 header > h2 {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
