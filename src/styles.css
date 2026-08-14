@@ -7,6 +7,9 @@
   margin: 0;
   padding: 0;
 }
+html {
+  scroll-behavior: smooth;
+}
 body {
   box-sizing: border-box;
   background: linear-gradient(180deg, #9d9fa2 0%, #dee3e6 100%);
@@ -246,6 +249,24 @@ ol {
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100vh;
+  overflow-y: auto;
+}
+.app-layout::-webkit-scrollbar {
+  width: 10px;
+}
+
+.app-layout::-webkit-scrollbar-track {
+  background: transparent;
+  margin-block: 1px;
+}
+
+.app-layout::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.4);
+  border-radius: 10px;
+}
+
+.app-layout::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(80, 85, 90);
 }
 /*APP-HEADER*/
 header {
@@ -385,6 +406,7 @@ footer {
 /*PROJECTS-VIEW-HEADER*/
 #dynamic-content {
   padding: 4rem;
+
 }
 #project-view-header {
   display: flex;
@@ -510,12 +532,16 @@ footer {
 }
 
 .task-card {
+    position: relative;
+  overflow: hidden;
+  height: 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: rgba(255, 255, 255, 0.4);
   border: 1px solid var(--border-color);
   border-radius: 10px;
+  border: 1px solid #d9534f; ;
   padding: 15px 20px;
   box-shadow: 0 1px 1px 0px rgb(172, 162, 162);
   transition:
@@ -528,6 +554,23 @@ footer {
   box-shadow: 0 4px 6px 0px rgba(172, 162, 162, 0.5);
 }
 
+
+.task-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px; 
+  height: 100%;
+  background-color: #c91c17; 
+  transform: scaleY(0); 
+  transform-origin: center;
+  transition: transform 0.7s ease;
+}
+
+.task-card:hover::before {
+  transform: scaleY(1);
+}
 .task-checkbox {
   width: 20px;
   height: 20px;

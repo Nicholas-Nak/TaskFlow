@@ -5,11 +5,48 @@ import { renderProjects } from "./renderProjects";
 import { renderProjectView } from "./renderProjectView";
 
 let currentTargetProject = null;
+let currentEditingTask = null;
 
 export function openTaskModal(project) {
   currentTargetProject = project;
-  const taskDialog = document.getElementById("task-dialog");
-  taskDialog.showModal();
+  currentEditingTask = null;
+
+  const dialog = document.getElementById("task-dialog");
+  const form = document.getElementById("task-form");
+  const legend = document.getElementById("task-legend");
+  const submitBtn = document.getElementById("task-submit");
+
+  form.reset();
+  if (legend) {
+    legend.textContent = "Створити завдання";
+    submitBtn.textContent = "Cтворити";
+  }
+
+  dialog.showModal();
+}
+
+export function openEditTaskModal(task, project) {
+  currentTargetProject = project;
+  currentEditingTask = task;
+
+  const dialog = document.getElementById("task-dialog");
+  const legend = document.getElementById("task-legend");
+  const submitBtn = document.getElementById("task-submit");
+
+  if (legend) {
+    legend.textContent = "Редагувати завдання";
+    submitBtn.textContent = "Змінити";
+  }
+
+  document.getElementById("task-title-input").value = task.getTitle();
+  document.getElementById("task-desc-input").value =
+    task.getDescription() || "";
+  document.getElementById("task-date-input").value = task.getDate() || "";
+  document.getElementById("task-priority-select").value =
+    task.getPriority() || "";
+  document.getElementById("task-notes-input").value = task.getNotes() || "";
+
+  dialog.showModal();
 }
 
 export function initTaskModal() {
@@ -20,6 +57,7 @@ export function initTaskModal() {
   closeBtn.addEventListener("click", () => {
     dialog.close();
     form.reset();
+    currentEditingTask = null;
   });
 
   form.addEventListener("submit", (e) => {
@@ -32,20 +70,26 @@ export function initTaskModal() {
     const notes = document.getElementById("task-notes-input").value.trim();
 
     if (title && currentTargetProject) {
-      const newTask = new Task(title, date, priority);
-      newTask.setDescription(desc);
-      newTask.setNotes(notes);
-
-      currentTargetProject.addTask(newTask);
-
+      if (currentEditingTask) {
+        currentEditingTask.setTitle(title);
+        currentEditingTask.setDescription(desc);
+        currentEditingTask.setDate(date);
+        currentEditingTask.setPriority(priority);
+        currentEditingTask.setNotes(notes);
+      } else {
+        const newTask = new Task(title, date, priority);
+        newTask.setDescription(desc);
+        newTask.setNotes(notes);
+        currentTargetProject.addTask(newTask);
+      }
       saveStorage(getAppProjects());
-
       renderProjectView(currentTargetProject);
       renderProjects();
     }
 
     dialog.close();
     form.reset();
+    currentEditingTask = null;
   });
 }
 export function initProjectModal() {
@@ -71,7 +115,7 @@ export function initProjectModal() {
 
     if (projectName) {
       const newProject = new Project(projectName);
-     getAppProjects().addProject(newProject);
+      getAppProjects().addProject(newProject);
       saveStorage(getAppProjects());
       console.log("Створено новий проєкт", getAppProjects().getProjects());
       renderProjects();
@@ -95,7 +139,7 @@ export function initDeleteConfirmModal() {
   const confirmBtn = document.getElementById("confirm-delete-btn");
 
   cancelBtn.addEventListener("click", () => {
-    projectToDelete = null; 
+    projectToDelete = null;
     dialog.close();
   });
 
@@ -105,12 +149,14 @@ export function initDeleteConfirmModal() {
       saveStorage(getAppProjects());
       renderProjects();
 
-      const inboxProject = getAppProjects().getProjects().find(p => p.id === "inbox");
+      const inboxProject = getAppProjects()
+        .getProjects()
+        .find((p) => p.id === "inbox");
       if (inboxProject) {
         renderProjectView(inboxProject);
       }
     }
-    
+
     projectToDelete = null;
     dialog.close();
   });
