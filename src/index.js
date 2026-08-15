@@ -5,6 +5,7 @@ import { renderProjects } from "./ui/renderProjects";
 import { Project, Task } from "./logic/classes";
 import { initProjectModal, initTaskModal, initDeleteConfirmModal } from "./ui/modals";
 import { initNavigationFilters } from "./ui/modals";
+import { renederOverview } from "./ui/renderOverview";
 
 export const appProjects = loadStorage();
 export function getAppProjects() {
@@ -27,6 +28,7 @@ initProjectModal();
 initTaskModal();
 initDeleteConfirmModal();
 initNavigationFilters();
+renederOverview();
 
 export function clearMain() {
   const main = document.getElementById("dynamic-content");

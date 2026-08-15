@@ -4,6 +4,7 @@ import { getAppProjects } from "../index";
 import { renderProjects } from "./renderProjects";
 import { renderProjectView, renderFilteredView } from "./renderProjectView";
 import { getTodayTasks, getFutureTasks, getCompletedTasks } from "../utils/dateUtils";
+import { renederOverview } from "./renderOverview";
 
 let currentTargetProject = null;
 let currentEditingTask = null;
@@ -101,8 +102,7 @@ export function initNavigationFilters() {
 
     if (overviewBtn) {
         overviewBtn.addEventListener("click", () => {
-            const inboxProject = getAppProjects().getProjects().find(p => p.id === "inbox");
-            if (inboxProject) renderProjectView(inboxProject);
+            renederOverview();
         });
     }
     if (todayBtn) {
