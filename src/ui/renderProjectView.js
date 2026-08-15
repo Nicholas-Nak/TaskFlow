@@ -1,4 +1,3 @@
-import { ta } from "date-fns/locale";
 import { clearMain } from "./dom";
 import { openTaskModal } from "./modals";
 import {
@@ -10,6 +9,102 @@ import { renderProjects } from "./renderProjects";
 import { findProjectByTask } from "../utils/dateUtils";
 import { getAppProjects } from "..";
 import { saveStorage } from "../logic/storage";
+
+
+
+function createTaskElement(task, project, isFilteredView = false) {
+  const taskCard = document.createElement("div");
+  taskCard.classList.add("task-card");
+
+  const checkbox = document.createElement("input");
+  checkbox.setAttribute("type", "checkbox");
+  checkbox.classList.add("task-checkbox");
+
+  if (task.isCompleted()) {
+    checkbox.checked = true;
+    taskCard.classList.add("completed");
+  }
+
+  const infoContainer = document.createElement("div");
+  infoContainer.classList.add("task-info");
+
+  const taskTitle = document.createElement("span");
+  taskTitle.classList.add("task-title");
+  taskTitle.textContent = task.getTitle();
+
+  const metaContainer = document.createElement("div");
+  metaContainer.classList.add("task-meta");
+
+  const taskDate = document.createElement("span");
+  taskDate.classList.add("task-date");
+  taskDate.textContent = task.getDate() || "Без терміну";
+
+  const taskPriority = document.createElement("span");
+  taskPriority.classList.add("task-priority");
+  if (task.getPriority()) {
+    taskPriority.classList.add(`priority-${task.getPriority().toLowerCase()}`);
+    taskPriority.textContent = task.getPriority().toUpperCase();
+  }
+
+  metaContainer.appendChild(taskDate);
+  metaContainer.appendChild(taskPriority);
+
+  if (isFilteredView) {
+    const projectBadge = document.createElement("span");
+    projectBadge.classList.add("task-date");
+    projectBadge.textContent = `📁 ${project ? project.getTitle() : "Невідомо"}`;
+    projectBadge.style.marginLeft = "10px";
+    metaContainer.appendChild(projectBadge);
+  }
+
+  infoContainer.appendChild(taskTitle);
+  infoContainer.appendChild(metaContainer);
+
+  const actionsContainer = document.createElement("div");
+  actionsContainer.classList.add("task-actions");
+
+  const detailsBtn = document.createElement("button");
+  detailsBtn.textContent = "Деталі";
+  detailsBtn.classList.add("task-btn", "details-btn");
+  detailsBtn.addEventListener("click", () => handleViewDetails(task, project));
+
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "Редагувати";
+  editBtn.classList.add("task-btn", "edit-btn");
+  editBtn.addEventListener("click", () => handleEditTask(task, project));
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Видалити";
+  deleteBtn.classList.add("task-btn", "delete-btn");
+  deleteBtn.addEventListener("click", () => handleDeleteTask(task, project));
+
+  actionsContainer.appendChild(detailsBtn);
+  actionsContainer.appendChild(editBtn);
+  actionsContainer.appendChild(deleteBtn);
+
+  taskCard.appendChild(checkbox);
+  taskCard.appendChild(infoContainer);
+  taskCard.appendChild(actionsContainer);
+
+  checkbox.addEventListener("change", () => {
+    if (checkbox.checked) {
+      taskCard.classList.add("completed");
+      task.setCompleted(true);
+    } else {
+      taskCard.classList.remove("completed");
+      task.setCompleted(false);
+    }
+    const projectStatus = document.getElementById("project-header-status");
+    if (projectStatus && !isFilteredView) {
+      projectStatus.textContent = project.getActive() + " активних   " + project.getCompleted() + " завершених";
+    }
+
+    saveStorage(getAppProjects());
+    renderProjects();
+  });
+
+  return taskCard;
+}
 
 export function renderProjectView(project) {
   clearMain();
@@ -100,94 +195,8 @@ export function renderProjectView(project) {
     }
 
     tasksArray.forEach((task) => {
-      const taskCard = document.createElement("div");
-      taskCard.classList.add("task-card");
-
-      const checkbox = document.createElement("input");
-      checkbox.setAttribute("type", "checkbox");
-      checkbox.classList.add("task-checkbox");
-
-      if (task.isCompleted()) {
-        checkbox.checked = true;
-        taskCard.classList.add("completed");
-      }
-      const infoContainer = document.createElement("div");
-      infoContainer.classList.add("task-info");
-
-      const taskTitle = document.createElement("span");
-      taskTitle.classList.add("task-title");
-      taskTitle.textContent = task.getTitle();
-
-      const metaContainer = document.createElement("div");
-      metaContainer.classList.add("task-meta");
-
-      const taskDate = document.createElement("span");
-      taskDate.classList.add("task-date");
-      taskDate.textContent = task.getDate() || "Без терміну погашення";
-
-      const taskPriority = document.createElement("span");
-      taskPriority.classList.add("task-priority");
-      taskPriority.classList.add(`priority-${task.getPriority().toLowerCase()}`);
-      taskPriority.textContent = task.getPriority().toUpperCase();
-
-      metaContainer.appendChild(taskDate);
-      metaContainer.appendChild(taskPriority);
-      infoContainer.appendChild(taskTitle);
-      infoContainer.appendChild(metaContainer);
-
-      const actionsContainer = document.createElement("div");
-      actionsContainer.classList.add("task-actions");
-
-      const detailsBtn = document.createElement("button");
-      detailsBtn.textContent = "Деталі";
-      detailsBtn.classList.add("task-btn", "details-btn");
-      detailsBtn.addEventListener("click", () =>
-        handleViewDetails(task, project),
-      );
-
-      const editBtn = document.createElement("button");
-      editBtn.textContent = "Редагувати";
-      editBtn.classList.add("task-btn", "edit-btn");
-      editBtn.addEventListener("click", () => {
-        handleEditTask(task, project);
-      });
-
-      const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "Видалити";
-      deleteBtn.classList.add("task-btn", "delete-btn");
-      deleteBtn.addEventListener("click", () => {
-        handleDeleteTask(task, project);
-      });
-
-      actionsContainer.appendChild(detailsBtn);
-      actionsContainer.appendChild(editBtn);
-      actionsContainer.appendChild(deleteBtn);
-
-      taskCard.appendChild(checkbox);
-      taskCard.appendChild(infoContainer);
-      taskCard.appendChild(actionsContainer);
-
+      const taskCard = createTaskElement(task, project, false);
       tasksContainer.appendChild(taskCard);
-
-      checkbox.addEventListener("change", () => {
-        if (checkbox.checked) {
-          taskCard.classList.add("completed");
-          task.setCompleted(true);
-        } else {
-          taskCard.classList.remove("completed");
-          task.setCompleted(false);
-        }
-        const projectStatus = document.getElementById("project-header-status");
-        if (projectStatus) {
-          projectStatus.textContent =
-            project.getActive() +
-            " активних   " +
-            project.getCompleted() +
-            " завершених";
-        }
-        saveStorage(getAppProjects());
-        renderProjects();
-      });
     });
   }
 
@@ -212,7 +221,7 @@ export function renderProjectView(project) {
         if (!b.getDate()) return -1;
         return new Date(a.getDate()) - new Date(b.getDate());
       } else if (sortValue === "creatDate") {
-        return b.getCreatedAt() - a.getCreatedAt(); 
+        return b.getCreatedAt() - a.getCreatedAt();
       }
       return 0;
     });
@@ -226,156 +235,64 @@ export function renderProjectView(project) {
   updateTasksView();
 }
 
-
-
-
-
-
-
-
 export function renderFilteredView(titleText, subtitleText, tasksArray) {
-    clearMain();
-    const mainContent = document.getElementById("dynamic-content");
+  clearMain();
+  const mainContent = document.getElementById("dynamic-content");
 
-    const header = document.createElement("div")
-    header.id = "project-view-header";
+  const header = document.createElement("div");
+  header.id = "project-view-header";
 
-    const titleContainer = document.createElement("div");
-    
-    const projectName = document.createElement('p');
-    projectName.textContent = titleText; 
-    projectName.id = "project-header-name";
+  const titleContainer = document.createElement("div");
 
-    const projectSubtitle = document.createElement('p');
-    projectSubtitle.textContent = subtitleText; 
-    projectSubtitle.classList.add("project-header-subtitle");
+  const projectName = document.createElement("p");
+  projectName.textContent = titleText;
+  projectName.id = "project-header-name";
 
-    titleContainer.appendChild(projectName);
-    titleContainer.appendChild(projectSubtitle);
+  const projectSubtitle = document.createElement("p");
+  projectSubtitle.textContent = subtitleText;
+  projectSubtitle.classList.add("project-header-subtitle");
 
-    const headerBottom = document.createElement('div');
-    headerBottom.id = 'header-status-container';
+  titleContainer.appendChild(projectName);
+  titleContainer.appendChild(projectSubtitle);
 
-    const projectStatus = document.createElement('p');
-    projectStatus.id = "project-header-status";
-    projectStatus.textContent = `Всього завдань: ${tasksArray.length}`;
+  const headerBottom = document.createElement("div");
+  headerBottom.id = "header-status-container";
 
-    mainContent.appendChild(header);
-    header.appendChild(titleContainer);
-    header.appendChild(headerBottom);
-    headerBottom.append(projectStatus);
-    
-    const tasksContainer = document.createElement("div");
-    tasksContainer.id = "tasks-list-container";
-    mainContent.appendChild(tasksContainer);
+  const projectStatus = document.createElement("p");
+  projectStatus.id = "project-header-status";
+  projectStatus.textContent = `Всього завдань: ${tasksArray.length}`;
 
-    if (tasksArray.length === 0) {
-        const emptyState = document.createElement("div");
-        emptyState.classList.add("empty-state-container");
+  mainContent.appendChild(header);
+  header.appendChild(titleContainer);
+  header.appendChild(headerBottom);
+  headerBottom.append(projectStatus);
 
-        const emptyIcon = document.createElement("div");
-        emptyIcon.classList.add("empty-state-icon");
-        emptyIcon.innerHTML = "📭"; 
+  const tasksContainer = document.createElement("div");
+  tasksContainer.id = "tasks-list-container";
+  mainContent.appendChild(tasksContainer);
 
-        const emptyTitle = document.createElement("h3");
-        emptyTitle.textContent = "Тут нічого немає";
+  if (tasksArray.length === 0) {
+    const emptyState = document.createElement("div");
+    emptyState.classList.add("empty-state-container");
 
-        const emptyDesc = document.createElement("p");
-        emptyDesc.textContent = "Наразі в цьому поданні немає завдань.";
+    const emptyIcon = document.createElement("div");
+    emptyIcon.classList.add("empty-state-icon");
+    emptyIcon.innerHTML = "📭";
 
-        emptyState.append(emptyIcon, emptyTitle, emptyDesc);
-        tasksContainer.appendChild(emptyState);
-        return; 
-    }
+    const emptyTitle = document.createElement("h3");
+    emptyTitle.textContent = "Тут нічого немає";
 
-    tasksArray.forEach(task => {
-        const originalProject = findProjectByTask(task, getAppProjects());
+    const emptyDesc = document.createElement("p");
+    emptyDesc.textContent = "Наразі в цьому поданні немає завдань.";
 
-        const taskCard = document.createElement("div");
-        taskCard.classList.add("task-card");
+    emptyState.append(emptyIcon, emptyTitle, emptyDesc);
+    tasksContainer.appendChild(emptyState);
+    return;
+  }
 
-        const checkbox = document.createElement("input");
-        checkbox.setAttribute("type", "checkbox");
-        checkbox.classList.add("task-checkbox");
-        
-        if (task.isCompleted()) {
-            checkbox.checked = true;
-            taskCard.classList.add("completed"); 
-        }
-
-        const infoContainer = document.createElement("div");
-        infoContainer.classList.add("task-info");
-
-        const taskTitle = document.createElement("span");
-        taskTitle.classList.add("task-title");
-        taskTitle.textContent = task.getTitle(); 
-
-        const metaContainer = document.createElement("div");
-        metaContainer.classList.add("task-meta");
-
-        const taskDate = document.createElement("span");
-        taskDate.classList.add("task-date");
-        taskDate.textContent = task.getDate() || "Без терміну";
-
-        const taskPriority = document.createElement("span");
-        taskPriority.classList.add("task-priority");
-        if (task.getPriority()) {
-            taskPriority.classList.add(`priority-${task.getPriority().toLowerCase()}`);
-            taskPriority.textContent = task.getPriority().toUpperCase();
-        }
-
-        const projectBadge = document.createElement("span");
-        projectBadge.classList.add("task-date"); 
-        projectBadge.textContent = `📁 ${originalProject ? originalProject.getTitle() : "Невідомо"}`;
-        projectBadge.style.marginLeft = "10px";
-
-        metaContainer.appendChild(taskDate);
-        metaContainer.appendChild(taskPriority);
-        metaContainer.appendChild(projectBadge); 
-        
-        infoContainer.appendChild(taskTitle);
-        infoContainer.appendChild(metaContainer);
-
-        const actionsContainer = document.createElement("div");
-        actionsContainer.classList.add("task-actions");
-
-        const detailsBtn = document.createElement("button");
-        detailsBtn.textContent = "Деталі";
-        detailsBtn.classList.add("task-btn", "details-btn");
-        detailsBtn.addEventListener("click", () => handleViewDetails(task, originalProject));
-
-        const editBtn = document.createElement("button");
-        editBtn.textContent = "Редагувати";
-        editBtn.classList.add("task-btn", "edit-btn");
-        editBtn.addEventListener("click", () => handleEditTask(task, originalProject));
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Видалити";
-        deleteBtn.classList.add("task-btn", "delete-btn");
-        deleteBtn.addEventListener('click', () => {
-            handleDeleteTask(task, originalProject);
-        });
-
-        actionsContainer.appendChild(detailsBtn);
-        actionsContainer.appendChild(editBtn);
-        actionsContainer.appendChild(deleteBtn);
-
-        taskCard.appendChild(checkbox);
-        taskCard.appendChild(infoContainer);
-        taskCard.appendChild(actionsContainer);
-
-        tasksContainer.appendChild(taskCard);
-
-        checkbox.addEventListener("change", () => {
-            if (checkbox.checked) {
-                taskCard.classList.add("completed");
-                task.setCompleted(true); 
-            } else {
-                taskCard.classList.remove("completed");
-                task.setCompleted(false);
-            }
-            saveStorage(getAppProjects());
-            renderProjects();
-        });
-    });
+  tasksArray.forEach((task) => {
+    const originalProject = findProjectByTask(task, getAppProjects());
+    const taskCard = createTaskElement(task, originalProject, true);
+    tasksContainer.appendChild(taskCard);
+  });
 }

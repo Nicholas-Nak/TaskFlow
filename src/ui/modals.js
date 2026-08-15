@@ -2,9 +2,8 @@ import { Project, Task } from "../logic/classes";
 import { saveStorage } from "../logic/storage";
 import { getAppProjects } from "../index";
 import { renderProjects } from "./renderProjects";
-import { renderProjectView, renderFilteredView } from "./renderProjectView";
+import { renderProjectView} from "./renderProjectView";
 import { getTodayTasks, getFutureTasks, getCompletedTasks } from "../utils/dateUtils";
-import { renederOverview } from "./renderOverview";
 
 let currentTargetProject = null;
 let currentEditingTask = null;
@@ -94,48 +93,7 @@ export function initTaskModal() {
     currentEditingTask = null;
   });
 }
-export function initNavigationFilters() {
-    const overviewBtn = document.getElementById("btn-overview");
-    const todayBtn = document.getElementById("btn-today");
-    const upcomingBtn = document.getElementById("btn-upcoming");
-    const completedBtn = document.getElementById("btn-completed");
 
-    if (overviewBtn) {
-        overviewBtn.addEventListener("click", () => {
-            renederOverview();
-        });
-    }
-    if (todayBtn) {
-        todayBtn.addEventListener("click", () => {
-            const todayTasks = getTodayTasks(getAppProjects());
-            renderFilteredView(
-                "Сьогодні", 
-                "Завдання, які потрібно виконати сьогодні.", 
-                todayTasks
-            );
-        });
-    }
-    if (upcomingBtn) {
-        upcomingBtn.addEventListener("click", () => {
-            const futureTasks = getFutureTasks(getAppProjects());
-            renderFilteredView(
-                "Майбутні", 
-                "Завдання, заплановані на завтра і пізніше.", 
-                futureTasks
-            );
-        });
-    }
-    if (completedBtn) {
-        completedBtn.addEventListener("click", () => {
-            const completedTasks = getCompletedTasks(getAppProjects());
-            renderFilteredView(
-                "Завершено", 
-                "Список усіх виконаних завдань.", 
-                completedTasks
-            );
-        });
-    }
-}
 let projectToDelete = null;
 export function initProjectModal() {
   const dialog = document.getElementById("project-dialog");
@@ -209,4 +167,47 @@ export function initDeleteConfirmModal() {
     projectToDelete = null;
     dialog.close();
   });
+}
+let currentRenamingProject = null;
+
+export function openRenameProjectModal(project) {
+  currentRenamingProject = project;
+  const dialogRename = document.getElementById("project-rename-dialog");
+  const renameInput = document.getElementById("project-rename-input");
+  
+  renameInput.value = project.getTitle(); 
+  dialogRename.showModal();
+}
+
+export function initRenameProjectModal() {
+  const dialogRename = document.getElementById("project-rename-dialog");
+  const renameForm = document.getElementById("project-rename-form");
+  const renameInput = document.getElementById("project-rename-input"); 
+  const closeRenameBtn = document.getElementById("project-rename-close-dialog");
+
+  if (closeRenameBtn) {
+    closeRenameBtn.addEventListener("click", () => {
+      dialogRename.close();
+      renameForm.reset();
+      currentRenamingProject = null;
+    });
+  }
+
+  if (renameForm) {
+    renameForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const projectRename = renameInput.value.trim();
+
+      if (projectRename && currentRenamingProject) {
+        currentRenamingProject.setTitle(projectRename);
+        saveStorage(getAppProjects());       
+        renderProjects();
+        renderProjectView(currentRenamingProject);            
+      }
+
+      dialogRename.close();
+      renameForm.reset();
+      currentRenamingProject = null;
+    });
+  }
 }

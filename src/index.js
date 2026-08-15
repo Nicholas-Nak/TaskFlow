@@ -3,8 +3,8 @@ import { renderCurrentTime } from "./utils/dateUtils";
 import { loadStorage, saveStorage } from "./logic/storage";
 import { renderProjects } from "./ui/renderProjects";
 import { Project, Task } from "./logic/classes";
-import { initProjectModal, initTaskModal, initDeleteConfirmModal } from "./ui/modals";
-import { initNavigationFilters } from "./ui/modals";
+import { initProjectModal, initTaskModal, initDeleteConfirmModal, initRenameProjectModal } from "./ui/modals";
+import { initNavigationFilters } from "./ui/dom";
 import { renederOverview } from "./ui/renderOverview";
 import { initSidebarToggle } from "./ui/dom";
 
@@ -27,12 +27,8 @@ renderCurrentTime();
 renderProjects();
 initProjectModal();
 initTaskModal();
+initRenameProjectModal();
 initSidebarToggle();
 initDeleteConfirmModal();
 initNavigationFilters();
 renederOverview();
-
-export function clearMain() {
-  const main = document.getElementById("dynamic-content");
-  main.innerHTML = "";
-}
