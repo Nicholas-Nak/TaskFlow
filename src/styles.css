@@ -1023,7 +1023,8 @@ footer {
 #overview-main-contaier {
   padding-top: 2rem;
   display: grid;
-  grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: repeat(2, minmax(230px, 1fr));
+  gap:10px;
 }
 
 #first-statistic-row {

@@ -6,7 +6,7 @@ import activeImg from "../images/active.png";
 import sunImg from "../images/sunny.png";
 import clockImg from "../images/clock.png";
 import tickImg from "../images/tick.png";
-import { getTodayTasks, getFutureTasks, getCompletedTasks } from "../utils/dateUtils";
+import { getTodayTasks, getFutureTasks, getCompletedTasks, getOverdueTasks, getHighPriorityTasks } from "../utils/dateUtils";
 function getTotalActive(){
     const projectsRef = getAppProjects();
     const projects = projectsRef.getProjects();
@@ -196,8 +196,10 @@ export function renederOverview(){
 
   const progressFooter = document.createElement('div');
   progressFooter.classList.add("progress-footer");
-  progressFooter.innerHTML = `<span><strong>0</strong> прострочених</span> &middot; <span><strong>0</strong> високий пріоритет</span>`;
+  const overdueCount = getOverdueTasks(getAppProjects()).length;
+  const highPriorityCount = getHighPriorityTasks(getAppProjects()).length;
 
+  progressFooter.innerHTML = `<span><strong style="color: #ce7373;">${overdueCount}</strong> прострочених</span> &middot; <span><strong>${highPriorityCount}</strong> високий пріоритет</span>`;
   progressCard.append(progressEyebrow, progressTitle, progressBarContainer, progressStats, progressFooter);
 
   secondRowContainer.append(reminderCard, progressCard);
