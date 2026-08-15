@@ -140,4 +140,66 @@ export function renederOverview(){
  completedConianer.appendChild(completedPng);
  completedConianer.appendChild(completedSpan);
  completedConianer.appendChild(completedNumber);
+ const secondRowContainer = document.createElement('div');
+  secondRowContainer.id = "second-statistic-row";
+
+  const reminderCard = document.createElement('div');
+  reminderCard.classList.add("overview-card", "reminder-card");
+
+  const reminderEyebrow = document.createElement('span');
+  reminderEyebrow.classList.add("card-eyebrow");
+  reminderEyebrow.textContent = "НІЖНЕ НАГАДУВАННЯ";
+
+  const reminderTitle = document.createElement('h3');
+  reminderTitle.classList.add("card-title");
+  reminderTitle.textContent = "Маленькі кроки все одно рухають вас вперед.";
+
+  const reminderText = document.createElement('p');
+  reminderText.classList.add("card-text");
+  reminderText.textContent = "Виберіть одне значуще завдання, приділіть йому всю свою увагу, а решта нехай зачекає своєї черги.";
+
+  reminderCard.append(reminderEyebrow, reminderTitle, reminderText);
+
+  const progressCard = document.createElement('div');
+  progressCard.classList.add("overview-card", "progress-card");
+
+  const progressEyebrow = document.createElement('span');
+  progressEyebrow.classList.add("card-eyebrow");
+  progressEyebrow.textContent = "З ПЕРШОГО ПОГЛЯДУ";
+
+  const progressTitle = document.createElement('h3');
+  progressTitle.classList.add("card-title");
+  progressTitle.textContent = "Ваш прогрес";
+
+  const totalTasksCount = getTotalActive() + getCompletedTotal();
+  const progressPercent = totalTasksCount === 0 ? 0 : Math.round((getCompletedTotal() / totalTasksCount) * 100);
+
+  const progressBarContainer = document.createElement('div');
+  progressBarContainer.classList.add("progress-bar-container");
+
+  const progressBarFill = document.createElement('div');
+  progressBarFill.classList.add("progress-bar-fill");
+  progressBarFill.style.width = `${progressPercent}%`; 
+  progressBarContainer.appendChild(progressBarFill);
+
+  const progressStats = document.createElement('div');
+  progressStats.classList.add("progress-stats");
+
+  const percentText = document.createElement('span');
+  percentText.innerHTML = `<strong>${progressPercent}%</strong> завершено`;
+
+  const projectsText = document.createElement('span');
+  const projectsCount = getAppProjects().getProjects().length;
+  projectsText.textContent = `${projectsCount} проєкти(ів)`;
+
+  progressStats.append(percentText, projectsText);
+
+  const progressFooter = document.createElement('div');
+  progressFooter.classList.add("progress-footer");
+  progressFooter.innerHTML = `<span><strong>0</strong> прострочених</span> &middot; <span><strong>0</strong> високий пріоритет</span>`;
+
+  progressCard.append(progressEyebrow, progressTitle, progressBarContainer, progressStats, progressFooter);
+
+  secondRowContainer.append(reminderCard, progressCard);
+  contentContainer.appendChild(secondRowContainer);
 }

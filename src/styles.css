@@ -229,6 +229,7 @@ ol {
   border-radius: 15px;
   text-align: start;
   width: 90%;
+  font-size: 15px;
   font-family:
     "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -1063,7 +1064,6 @@ footer {
   font-size: 38px;
   font-weight: 600;
   line-height: 1;
-
   color: #334e68;
 
   margin-top: 24px;
@@ -1083,4 +1083,97 @@ footer {
 }
 #first-statistic-row > :nth-child(4) {
   background-image: linear-gradient(to right, #cbd5e1 0%, #64748b 100%);
+}
+#second-statistic-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr; 
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.overview-card {
+  background-color: rgba(255, 255, 255, 0.4); 
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(38, 54, 70, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.overview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(38, 54, 70, 0.12);
+}
+
+.card-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ce7373; 
+}
+
+.card-title {
+  font-family: Georgia, serif;
+  font-size: 1.7rem;
+  color: #26313d;
+  margin: 0;
+  font-weight: 700;
+}
+
+.card-text {
+  font-size: 15px;
+  color: #45494e;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 90%;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: rgba(38, 54, 70, 0.15); 
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #263646; 
+  border-radius: 10px;
+  transition: width 0.8s ease-out;
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #263646;
+}
+
+.progress-stats strong {
+  font-weight: 700;
+}
+
+.progress-footer {
+  margin-top: auto; 
+  padding-top: 1rem;
+  border-top: 1px solid rgba(38, 54, 70, 0.1);
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  gap: 12px;
+}
+
+.progress-footer strong {
+  color: #ce7373; 
+}
+@media (max-width: 950px) {
+  #second-statistic-row {
+    grid-template-columns: 1fr;
+  }
 }
