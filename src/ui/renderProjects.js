@@ -1,12 +1,12 @@
-
 import closeIconPath from "../images/free-icon-close-1828747.png";
 import editIconPath from "../images/pen.png";
 import { saveStorage } from "../logic/storage";
 import { renderProjectView } from "./renderProjectView";
-import { openDeleteConfirmModal } from "./modals";
 import { getAppProjects } from "../index";
+import { openDeleteConfirmModal, openRenameProjectModal } from "./modals";
+
 export function renderProjects() {
- const allProjects = getAppProjects();
+  const allProjects = getAppProjects();
   const projectsContainer = document.getElementById("projects-container");
 
   projectsContainer.innerHTML = "";
@@ -38,20 +38,24 @@ export function renderProjects() {
     editImg.classList.add("pen-icon");
     editImg.setAttribute("src", editIconPath);
     editBtn.setAttribute("alt", "pen");
-if (project.id !== "inbox") {
-    const deleteBtn = document.createElement("button");
-    deleteBtn.classList.add("icon-btn", "icon-delete-btn");
 
-    const deleteImg = document.createElement("img");
-    deleteImg.classList.add("close-icon");
-    deleteImg.setAttribute("src", closeIconPath);
-    deleteBtn.setAttribute("alt", "close");
+    if (project.id !== "inbox") {
+      const deleteBtn = document.createElement("button");
+      deleteBtn.classList.add("icon-btn", "icon-delete-btn");
+
+      const deleteImg = document.createElement("img");
+      deleteImg.classList.add("close-icon");
+      deleteImg.setAttribute("src", closeIconPath);
+      deleteBtn.setAttribute("alt", "close");
+      
       projContainer.appendChild(deleteBtn);
-    deleteBtn.appendChild(deleteImg);
+      deleteBtn.appendChild(deleteImg);
+      
       deleteBtn.addEventListener("click", () => {
-    openDeleteConfirmModal(project);
-});
-}
+        openDeleteConfirmModal(project);
+      });
+    }
+
     projectsContainer.appendChild(projContainer);
     projContainer.appendChild(projBtn);
     projBtn.appendChild(projectNameContainer);
@@ -61,39 +65,12 @@ if (project.id !== "inbox") {
     projContainer.appendChild(editBtn);
     editBtn.appendChild(editImg);
 
-  
-    const dialogRename = document.getElementById("project-rename-dialog");
-    const renameForm = document.getElementById("project-rename-form");
-    const renameInput = document.getElementById("project-rename-input"); 
-    const closeRenameBtn = document.getElementById("project-rename-close-dialog");
-
-     projBtn.addEventListener("click", ()=>{
-      renderProjectView(project)});
-
-
-
-    editBtn.addEventListener("click", () => {
-      renameInput.value = project.getTitle(); 
-      dialogRename.showModal();
-      renameForm.onsubmit = (e) => {
-        e.preventDefault();
-
-        const projectRename = renameInput.value.trim();
-
-        if (projectRename) {
-          project.setTitle(projectRename);
-          saveStorage(allProjects);       
-          renderProjects();
-          renderProjectView(project);            
-        }
-
-        dialogRename.close();
-      };
+    projBtn.addEventListener("click", () => {
+      renderProjectView(project);
     });
 
-    closeRenameBtn.onclick = () => {
-      dialogRename.close();
-      renameForm.reset();
-    };
-  }); 
-} 
+    editBtn.addEventListener("click", () => {
+      openRenameProjectModal(project);
+    });
+  });
+}

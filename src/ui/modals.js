@@ -168,3 +168,46 @@ export function initDeleteConfirmModal() {
     dialog.close();
   });
 }
+let currentRenamingProject = null;
+
+export function openRenameProjectModal(project) {
+  currentRenamingProject = project;
+  const dialogRename = document.getElementById("project-rename-dialog");
+  const renameInput = document.getElementById("project-rename-input");
+  
+  renameInput.value = project.getTitle(); 
+  dialogRename.showModal();
+}
+
+export function initRenameProjectModal() {
+  const dialogRename = document.getElementById("project-rename-dialog");
+  const renameForm = document.getElementById("project-rename-form");
+  const renameInput = document.getElementById("project-rename-input"); 
+  const closeRenameBtn = document.getElementById("project-rename-close-dialog");
+
+  if (closeRenameBtn) {
+    closeRenameBtn.addEventListener("click", () => {
+      dialogRename.close();
+      renameForm.reset();
+      currentRenamingProject = null;
+    });
+  }
+
+  if (renameForm) {
+    renameForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const projectRename = renameInput.value.trim();
+
+      if (projectRename && currentRenamingProject) {
+        currentRenamingProject.setTitle(projectRename);
+        saveStorage(getAppProjects());       
+        renderProjects();
+        renderProjectView(currentRenamingProject);            
+      }
+
+      dialogRename.close();
+      renameForm.reset();
+      currentRenamingProject = null;
+    });
+  }
+}
