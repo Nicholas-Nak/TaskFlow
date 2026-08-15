@@ -28,7 +28,11 @@ function getCompletedTotal(){
 
 export function renederOverview(){
     clearMain();
+ 
  const mainContainer = document.getElementById("dynamic-content");
+ const mainContentWrapper = document.createElement('div');
+ mainContentWrapper.id = "overview-content-wrapper";
+ mainContainer.appendChild(mainContentWrapper);
  const headContainer = document.createElement('div');
  headContainer.id = "overview-head-container"
 
@@ -40,7 +44,7 @@ export function renederOverview(){
  headDescription.id = "overview-head-description";
  headDescription.textContent = "Вдумливий огляд вашого дня, зібраний в одному спокійному місці.";
 
- mainContainer.appendChild(headContainer);
+ mainContentWrapper.appendChild(headContainer);
  headContainer.appendChild(headTitle);
  headContainer.appendChild(headDescription);
 
@@ -67,7 +71,7 @@ export function renederOverview(){
  activeNumber.textContent = getTotalActive();
  
 
- mainContainer.appendChild(contentContainer);
+ mainContentWrapper.appendChild(contentContainer);
  contentContainer.appendChild(firstRowContainer);
  firstRowContainer.appendChild(activeConianer);
  activeConianer.appendChild(activePng);
