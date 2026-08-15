@@ -211,6 +211,8 @@ export function renderProjectView(project) {
         if (!a.getDate()) return 1;
         if (!b.getDate()) return -1;
         return new Date(a.getDate()) - new Date(b.getDate());
+      } else if (sortValue === "creatDate") {
+        return b.getCreatedAt() - a.getCreatedAt(); 
       }
       return 0;
     });

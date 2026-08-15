@@ -79,13 +79,19 @@ export class Task {
   #priority = "";
   #notes = "";
   #date = "";
+  #createdAt;
 
-  constructor(title, date = "", priority = "", id = crypto.randomUUID(), status = "active") {
+  constructor(title, date = "", priority = "", id = crypto.randomUUID(), status = "active",createdAt = Date.now()) {
     this.id = id;
     this.title = title;
     this.#date = date;
     this.#priority = priority;
     this.status = status;
+    this.#createdAt = createdAt;
+
+  }
+  getCreatedAt() {
+    return this.#createdAt;
   }
 
   getTitle() {
@@ -153,6 +159,7 @@ export class Task {
       description: this.#description,
       priority: this.#priority,
       notes: this.#notes,
+      createdAt: this.#createdAt,
     };
   }
 }
