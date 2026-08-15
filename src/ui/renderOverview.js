@@ -1,7 +1,7 @@
 import { subMilliseconds } from "date-fns";
 import { getAppProjects } from "..";
 import { Project } from "../logic/classes";
-import { clearMain } from "..";
+import { clearMain } from "./dom";
 import activeImg from "../images/active.png";
 import sunImg from "../images/sunny.png";
 import clockImg from "../images/clock.png";
