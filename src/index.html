@@ -6,13 +6,16 @@
   </head>
   <body>
     <aside class="sidebar">
+      <button id="sidebar-toggle" class="sidebar-toggle-btn">
+        <span class="arrow">❮</span>
+      </button>
       <div class="logo-page-container">
         <img id="page-logo" src="images/pngwing.com (5).png" alt="Page logo" />
         <h1>TaskFlow</h1>
       </div>
       <div class="navigation-container">
         <nav>
-         <ul class="main-navigation">
+          <ul class="main-navigation">
             <li>
               <button id="btn-overview" class="nav-btn">
                 <img src="images/home.png" alt="home" class="nav-icon" />
@@ -42,8 +45,7 @@
         <div class="nav-projects-container">
           <span id="my-projects-header">мої проекти</span>
           <button id="New-project">+ Новий проект</button>
-          <div id="projects-container">
-          
+          <div id="projects-container"></div>
         </div>
       </div>
     </aside>
@@ -52,7 +54,7 @@
       <header class="app-header">
         <h2>Давай Геш , давай х..</h2>
         <div class="current-date-container">
-          <p> </p>
+          <p></p>
         </div>
       </header>
 
@@ -65,9 +67,15 @@
       <form id="project-form">
         <fieldset id="project-fieldset">
           <legend id="project-legend">Новий проєкт</legend>
-          
-          <input type="text" id="project-input" placeholder="Назва проєкту" required autocomplete="off" />
-          
+
+          <input
+            type="text"
+            id="project-input"
+            placeholder="Назва проєкту"
+            required
+            autocomplete="off"
+          />
+
           <div class="dialog-buttons">
             <button type="submit" id="project-submit">Створити</button>
             <button type="button" id="project-close-dialog">Відмінити</button>
@@ -76,55 +84,82 @@
       </form>
     </dialog>
     <dialog id="project-rename-dialog">
-  <form id="project-rename-form">
-    <fieldset id="project-rename-fieldset"> 
-      <legend id="project-rename-legend">Перейменувати проєкт</legend>
-      
-      <input type="text" id="project-rename-input" placeholder="Назва проєкту" required autocomplete="off" />
-      
-      <div class="dialog-rename-buttons">
-        <button type="submit" id="project-rename-submit">Зберегти</button>
-        <button type="button" id="project-rename-close-dialog">Відмінити</button>
-      </div>
-    </fieldset>
-  </form>
-</dialog>
+      <form id="project-rename-form">
+        <fieldset id="project-rename-fieldset">
+          <legend id="project-rename-legend">Перейменувати проєкт</legend>
 
-<dialog id="task-dialog">
-  <form id="task-form">
-    <fieldset id="task-fieldset">
-      <legend id="task-legend">Нове завдання</legend>
-      
-      <input type="text" id="task-title-input" placeholder="Назва завдання..." required>
-      <textarea id="task-desc-input" placeholder="Опис " rows="3"></textarea>
-      
-      <div class="task-form-row">
-        <input type="date" id="task-date-input">
-        <select id="task-priority-select">
-          <option value="low">Низький </option>
-          <option value="medium" selected>Середній </option>
-          <option value="high">Високий </option>
-        </select>
-      </div>
+          <input
+            type="text"
+            id="project-rename-input"
+            placeholder="Назва проєкту"
+            required
+            autocomplete="off"
+          />
 
-      <textarea id="task-notes-input" placeholder="Нотатки..." rows="2"></textarea>
+          <div class="dialog-rename-buttons">
+            <button type="submit" id="project-rename-submit">Зберегти</button>
+            <button type="button" id="project-rename-close-dialog">
+              Відмінити
+            </button>
+          </div>
+        </fieldset>
+      </form>
+    </dialog>
 
-      <div class="dialog-buttons">
-        <button type="button" id="task-close-dialog">Скасувати</button>
-        <button type="submit" id="task-submit">Додати завдання</button>
+    <dialog id="task-dialog">
+      <form id="task-form">
+        <fieldset id="task-fieldset">
+          <legend id="task-legend">Нове завдання</legend>
+
+          <input
+            type="text"
+            id="task-title-input"
+            placeholder="Назва завдання..."
+            required
+          />
+          <textarea
+            id="task-desc-input"
+            placeholder="Опис "
+            rows="3"
+          ></textarea>
+
+          <div class="task-form-row">
+            <input type="date" id="task-date-input" />
+            <select id="task-priority-select">
+              <option value="low">Низький</option>
+              <option value="medium" selected>Середній</option>
+              <option value="high">Високий</option>
+            </select>
+          </div>
+
+          <textarea
+            id="task-notes-input"
+            placeholder="Нотатки..."
+            rows="2"
+          ></textarea>
+
+          <div class="dialog-buttons">
+            <button type="button" id="task-close-dialog">Скасувати</button>
+            <button type="submit" id="task-submit">Додати завдання</button>
+          </div>
+        </fieldset>
+      </form>
+    </dialog>
+    <dialog id="delete-confirm-dialog">
+      <div class="confirm-content">
+        <h3 id="confirm-title">Видалити проєкт?</h3>
+        <p>
+          Ви впевнені, що хочете видалити цей проєкт? Усі завдання всередині
+          будуть втрачені назавжди.
+        </p>
+        <div
+          class="dialog-buttons"
+          style="justify-content: center; margin-top: 20px"
+        >
+          <button type="button" id="cancel-delete-btn">Скасувати</button>
+          <button type="button" id="confirm-delete-btn">Видалити</button>
+        </div>
       </div>
-    </fieldset>
-  </form>
-</dialog>
-<dialog id="delete-confirm-dialog">
-  <div class="confirm-content">
-    <h3 id="confirm-title">Видалити проєкт?</h3>
-    <p>Ви впевнені, що хочете видалити цей проєкт? Усі завдання всередині будуть втрачені назавжди.</p>
-    <div class="dialog-buttons" style="justify-content: center; margin-top: 20px;">
-      <button type="button" id="cancel-delete-btn">Скасувати</button>
-      <button type="button" id="confirm-delete-btn">Видалити</button>
-    </div>
-  </div>
-</dialog>
+    </dialog>
   </body>
 </html>

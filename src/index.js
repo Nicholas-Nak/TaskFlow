@@ -6,6 +6,7 @@ import { Project, Task } from "./logic/classes";
 import { initProjectModal, initTaskModal, initDeleteConfirmModal } from "./ui/modals";
 import { initNavigationFilters } from "./ui/modals";
 import { renederOverview } from "./ui/renderOverview";
+import { initSidebarToggle } from "./ui/dom";
 
 export const appProjects = loadStorage();
 export function getAppProjects() {
@@ -26,6 +27,7 @@ renderCurrentTime();
 renderProjects();
 initProjectModal();
 initTaskModal();
+initSidebarToggle();
 initDeleteConfirmModal();
 initNavigationFilters();
 renederOverview();

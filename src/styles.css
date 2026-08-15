@@ -1178,3 +1178,60 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+/*SIDEBAR-TOGLE*/
+.sidebar {
+  position: relative;
+  transition: width 0.3s ease, padding 0.3s ease;
+  overflow: hidden; 
+  white-space: nowrap; 
+}
+
+.sidebar-toggle-btn {
+  position: absolute;
+  top: 50%;
+  right: -7px; 
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1px solid #dcd5ce; 
+  color: #45494e;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(38, 54, 70, 0.15);
+  transition: background-color 0.2s ease, right 0.3s ease;
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: #f1f5f9;
+  color: #ce7373; 
+}
+
+.sidebar-toggle-btn .arrow {
+  font-size: 12px;
+  transition: transform 0.3s ease; 
+}
+
+body.sidebar-collapsed {
+  grid-template-columns: 20px 1fr; 
+}
+
+body.sidebar-collapsed .sidebar-toggle-btn .arrow {
+  transform: rotate(180deg);
+}
+
+body.sidebar-collapsed .logo-page-container,
+body.sidebar-collapsed .navigation-container {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.logo-page-container,
+.navigation-container {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
