@@ -191,7 +191,37 @@ export function renderProjectView(project) {
     });
   }
 
-  displayTasks(project.getTasks());
+  function updateTasksView() {
+    const searchTerm = searchInputText.value.toLowerCase();
+    const sortValue = searchSelect.value;
+
+    let processedTasks = project.getTasks().filter((task) => {
+      return task.getTitle().toLowerCase().includes(searchTerm);
+    });
+
+    processedTasks.sort((a, b) => {
+      if (sortValue === "title") {
+        return a.getTitle().localeCompare(b.getTitle());
+      } else if (sortValue === "priority") {
+        const weight = { high: 3, medium: 2, low: 1 };
+        const weightA = weight[a.getPriority().toLowerCase()] || 0;
+        const weightB = weight[b.getPriority().toLowerCase()] || 0;
+        return weightB - weightA;
+      } else if (sortValue === "daedlineDate") {
+        if (!a.getDate()) return 1;
+        if (!b.getDate()) return -1;
+        return new Date(a.getDate()) - new Date(b.getDate());
+      }
+      return 0;
+    });
+
+    displayTasks(processedTasks);
+  }
+
+  searchInputText.addEventListener("input", updateTasksView);
+  searchSelect.addEventListener("change", updateTasksView);
+
+  updateTasksView();
 }
 
 
